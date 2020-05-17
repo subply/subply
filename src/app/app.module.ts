@@ -7,7 +7,7 @@ import { AppComponent } from "./app.component";
 import { UrlInputComponent } from "./main/url-input/url-input.component";
 import { HeaderComponent } from "./header/header.component";
 import { TranslationComponent } from "./main/translation/translation.component";
-import { NotFountComponent } from "./main/not-found/not-found.component";
+import { NotFoundComponent } from "./main/not-found/not-found.component";
 
 @NgModule({
   declarations: [
@@ -15,7 +15,7 @@ import { NotFountComponent } from "./main/not-found/not-found.component";
     UrlInputComponent,
     HeaderComponent,
     TranslationComponent,
-    NotFountComponent,
+    NotFoundComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],

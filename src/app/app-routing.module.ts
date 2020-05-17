@@ -1,10 +1,19 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
 
-const routes: Routes = [];
+import { UrlInputComponent } from "./main/url-input/url-input.component";
+import { TranslationComponent } from "./main/translation/translation.component";
+import { NotFoundComponent } from "./main/not-found/not-found.component";
+
+const routes: Routes = [
+  { path: "", redirectTo: "uri-input", pathMatch: "full" },
+  { path: "uri-input", component: UrlInputComponent },
+  { path: "translation", component: TranslationComponent },
+  { path: "**", component: NotFoundComponent },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
