@@ -6,8 +6,8 @@ import { TranslationComponent } from "./main/translation/translation.component";
 import { NotFoundComponent } from "./main/not-found/not-found.component";
 
 const routes: Routes = [
-  { path: "", redirectTo: "uri-input", pathMatch: "full" },
-  { path: "uri-input", component: UrlInputComponent },
+  { path: "", redirectTo: "url-input", pathMatch: "full" },
+  { path: "url-input", component: UrlInputComponent },
   { path: "translation", component: TranslationComponent },
   { path: "**", component: NotFoundComponent },
 ];
