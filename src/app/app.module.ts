@@ -8,6 +8,8 @@ import { UrlInputComponent } from "./main/url-input/url-input.component";
 import { HeaderComponent } from "./header/header.component";
 import { TranslationComponent } from "./main/translation/translation.component";
 import { NotFoundComponent } from "./main/not-found/not-found.component";
+import { MypageComponent } from './mypage/mypage.component';
+import { RankComponent } from './rank/rank.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,8 @@ import { NotFoundComponent } from "./main/not-found/not-found.component";
     HeaderComponent,
     TranslationComponent,
     NotFoundComponent,
+    MypageComponent,
+    RankComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
