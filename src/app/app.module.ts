@@ -10,6 +10,8 @@ import { TranslationComponent } from "./main/translation/translation.component";
 import { NotFoundComponent } from "./main/not-found/not-found.component";
 import { MypageComponent } from './mypage/mypage.component';
 import { RankComponent } from './rank/rank.component';
+import {YouTubePlayerModule} from '@angular/youtube-player';
+
 
 @NgModule({
   declarations: [
@@ -21,7 +23,7 @@ import { RankComponent } from './rank/rank.component';
     MypageComponent,
     RankComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule],
+  imports: [BrowserModule, AppRoutingModule, [YouTubePlayerModule]],
   providers: [],
   bootstrap: [AppComponent],
 })
