@@ -24,7 +24,3 @@ export class HookTestComponent {
     this.temp = new TempData(10, "sample data");
   }
 }
-
-//     <p>myStr: <input type="str" [(ngModel)="strVal" ] />
-//     <p>temp.id: <input type="number" [(ngModel)]="temp.id" /></p>
-//     <p>temp.content: <input type="text" [(ngModel)]="temp.content" /></p>
