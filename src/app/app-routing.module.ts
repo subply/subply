@@ -11,7 +11,7 @@ import { HookTestComponent } from "./main/hook-test/hook-test.component";
 const routes: Routes = [
   { path: "", redirectTo: "url-input", pathMatch: "full" },
   { path: "url-input", component: UrlInputComponent },
-  { path: "translate", component: TranslationComponent },
+  { path: "translate/:id", component: TranslationComponent},
   { path: "mypage", component: MypageComponent },
   { path: "rank", component: RankComponent },
   { path: "hook-test", component: HookTestComponent },
