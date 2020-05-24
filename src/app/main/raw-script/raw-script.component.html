@@ -1,0 +1,6 @@
+<ul>
+    <li *ngFor="let script of scripts" (click)="handleclick()">
+        <h3>{{ script.script }}</h3>
+        <p>{{ script.startTime }} - {{script.endTime}}</p>
+    </li>
+</ul>

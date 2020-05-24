@@ -10,12 +10,20 @@ export class TranslationComponent implements OnInit {
 
   constructor(private route: ActivatedRoute) { }
   @Input() videoId: string;
-  
+  player: any;
+
   ngOnInit() {
     this.videoId = this.route.snapshot.paramMap.get('id');
-    
+    this.initPlayer();
+  }
+
+  initPlayer(){
     const tag = document.createElement('script');
     tag.src = "https://www.youtube.com/iframe_api";
     document.body.appendChild(tag);
+  }
+  
+  onPlayerReady(event) {
+    event.target.playVideo();
   }
 }
