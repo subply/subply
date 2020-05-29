@@ -29,11 +29,12 @@ export class RawScriptComponent implements OnInit {
   getXMLFromURL() {
     this.http.get(this.URL, { responseType: 'text' }).subscribe(
       response=>{
-        // if(!response){ this.loading = false; return; } 
+        if(!response){ this.loading = false; return; } 
         this.getScriptsFromXML(response);
         this.scriptExist = true;
         this.loading = false;
-      }
+        console.log(this.loading);
+      },
       );
   }
 

@@ -1,6 +1,21 @@
-<ul>    
-    <li *ngFor="let script of scripts index as i;"(click)="handleclick(i)">
-        <h3>{{ script.script }}</h3>
-        <p>{{ script.startTime }} - {{script.endTime}}</p>
-    </li>
-</ul>
+<div *ngIf="loading === true; then loading; else loaded;"></div>
+
+<ng-template #loading>
+    Loading...
+</ng-template>
+<ng-template #loaded>
+    <div *ngIf="scriptExist === true; then exist; else notExist"></div>
+    <ng-template #exist>
+        <ul>    
+            <li *ngFor="let script of scripts index as i;"(click)="handleclick(i)">
+                <h3>{{ script.script }}</h3>
+                <p>{{ script.startTime }} - {{script.endTime}}</p>
+            </li>
+        </ul>
+    </ng-template>
+    <ng-template #notExist>
+        <div>
+            Subs Not Found
+        </div>
+    </ng-template>
+</ng-template>
