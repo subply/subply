@@ -13,8 +13,6 @@ import { NotFoundComponent } from "./main/not-found/not-found.component";
 import { MypageComponent } from "./mypage/mypage.component";
 import { RankComponent } from "./rank/rank.component";
 import { YouTubePlayerModule } from '@angular/youtube-player';
-import { ChildComponent } from "./main/child/child.component";
-import { HookTestComponent } from "./main/hook-test/hook-test.component";
 import { RawScriptComponent } from './main/raw-script/raw-script.component';
 
 @NgModule({
@@ -26,8 +24,6 @@ import { RawScriptComponent } from './main/raw-script/raw-script.component';
     NotFoundComponent,
     MypageComponent,
     RankComponent,
-    ChildComponent,
-    HookTestComponent,
     RawScriptComponent,
   ],
   imports: [

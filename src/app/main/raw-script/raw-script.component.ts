@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { parseString } from 'xml2js';
+import { ScriptsService } from '../../../service/scripts.service'
 
 @Component({
   selector: 'app-raw-script',
@@ -15,32 +16,24 @@ export class RawScriptComponent implements OnInit {
   scriptExist: boolean = false;
   loading: boolean = true;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private scriptService: ScriptsService) { }
 
   ngOnInit(): void { }
 
-  ngOnChanges(){
-    if(this.videoId){
+  ngOnChanges(): void {
+    if (this.videoId) {
       this.URL = `http://video.google.com/timedtext?v=${this.videoId}&lang=en`;
-      this.getXMLFromURL();
+      this.scriptService.getXMLFromURL(this.URL).subscribe(response => {
+        if(!response){ this.loading = false; return; } 
+        this.parseScriptsFromXML(response);
+        this.scriptExist = true;
+        this.loading = false;
+      })
     }
   }
 
-  getXMLFromURL() {
-    this.http.get(this.URL, { responseType: 'text' }).subscribe(
-      response=>{
-        if(!response){ this.loading = false; return; } 
-        this.getScriptsFromXML(response);
-        this.scriptExist = true;
-        this.loading = false;
-        console.log(this.loading);
-      },
-      );
-  }
 
-  
-
-  getScriptsFromXML(xml_string) {
+  parseScriptsFromXML(xml_string) {
     parseString(xml_string, { explicitArray: false }, (error, result) => {
       if (error) {
         throw new Error(error);
@@ -58,6 +51,7 @@ export class RawScriptComponent implements OnInit {
         });
       }
     });
+
   }
 
   handleclick(i) {
