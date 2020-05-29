@@ -1,5 +1,5 @@
-<ul>
-    <li *ngFor="let script of scripts" (click)="handleclick()">
+<ul>    
+    <li *ngFor="let script of scripts index as i;"(click)="handleclick(i)">
         <h3>{{ script.script }}</h3>
         <p>{{ script.startTime }} - {{script.endTime}}</p>
     </li>

@@ -3,4 +3,4 @@
     videoId={{videoId}}
     (ready)="onPlayerReady($event)"
 ></youtube-player>
-<app-raw-script></app-raw-script>
+<app-raw-script [videoId]="videoId"></app-raw-script>

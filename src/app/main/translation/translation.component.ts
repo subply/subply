@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 export class TranslationComponent implements OnInit {
 
   constructor(private route: ActivatedRoute) { }
-  @Input() videoId: string;
+  videoId: string;
   player: any;
 
   ngOnInit() {
