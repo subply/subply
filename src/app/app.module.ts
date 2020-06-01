@@ -2,6 +2,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { AppRoutingModule } from "./app-routing.module";
 import { FormsModule } from "@angular/forms";
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from "./app.component";
 import { UrlInputComponent } from "./main/url-input/url-input.component";
@@ -12,8 +13,7 @@ import { NotFoundComponent } from "./main/not-found/not-found.component";
 import { MypageComponent } from "./mypage/mypage.component";
 import { RankComponent } from "./rank/rank.component";
 import { YouTubePlayerModule } from '@angular/youtube-player';
-import { ChildComponent } from "./main/child/child.component";
-import { HookTestComponent } from "./main/hook-test/hook-test.component";
+import { RawScriptComponent } from './main/raw-script/raw-script.component';
 
 @NgModule({
   declarations: [
@@ -24,10 +24,15 @@ import { HookTestComponent } from "./main/hook-test/hook-test.component";
     NotFoundComponent,
     MypageComponent,
     RankComponent,
-    ChildComponent,
-    HookTestComponent,
+    RawScriptComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, [YouTubePlayerModule], FormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    YouTubePlayerModule,
+    FormsModule,
+    HttpClientModule
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
