@@ -14,6 +14,7 @@ import { MypageComponent } from "./mypage/mypage.component";
 import { RankComponent } from "./rank/rank.component";
 import { YouTubePlayerModule } from '@angular/youtube-player';
 import { RawScriptComponent } from './main/raw-script/raw-script.component';
+import { LoginComponent } from './header/login/login.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { RawScriptComponent } from './main/raw-script/raw-script.component';
     MypageComponent,
     RankComponent,
     RawScriptComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
