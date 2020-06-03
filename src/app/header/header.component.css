@@ -2,6 +2,25 @@
     width: 100%;
 }
 
+.title{
+    display: flex;
+    align-items: center;
+}
+
+.title__btn{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.title__btn--login{
+    height: 20px;
+}
+
+.title__btn--logout{
+    height: 20px;
+}
+
 .navbar{
     display: flex;
     justify-content: space-around;
