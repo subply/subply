@@ -1,1 +1,16 @@
-<p>login works!</p>
+<h2>LOGIN</h2>
+
+<form #loginForm = "ngForm" (ngSubmit)="onSubmit(loginForm)" novalidate>
+    <div>
+        <label for="id">ID</label>
+        <input name="id" type="text" placeholder="id" required ngModel #id="ngModel">
+    </div>
+    <div *ngIf="id.dirty && id.invalid">Check ID</div>
+    
+    <div>
+        <label for="password">PassWord</label>
+        <input name="password" type="password" placeholder="password" required ngModel #password="ngModel">
+    </div>
+    <div *ngIf="password.dirty && password.invalid">Check PassWord</div>
+    <button>LOGIN</button>    
+</form>
