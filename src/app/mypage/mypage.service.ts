@@ -1,19 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHandler } from "@angular/common/http";
 import { Observable } from "rxjs";
-
-interface User {
-  _id: object;
-  Videos: [];
-  Translations: [];
-  Votes: [];
-  Name: string;
-  UserId: string;
-  Password: string;
-  Nickname: string;
-  ProfileImage: string;
-  ContributedTime: number;
-}
+import { User } from "../model/user.interface";
 
 @Injectable({
   providedIn: "root",
