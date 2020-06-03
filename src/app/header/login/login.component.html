@@ -3,14 +3,28 @@
 <form #loginForm = "ngForm" (ngSubmit)="onSubmit(loginForm)" novalidate>
     <div>
         <label for="id">ID</label>
-        <input name="id" type="text" placeholder="id" required ngModel #id="ngModel">
+        <input 
+            name="id"
+            type="text" 
+            placeholder="id" 
+            required 
+            pattern="[-_!A-za-z0-9]{4,10}$"
+            ngModel 
+            #id="ngModel">
     </div>
-    <div *ngIf="id.dirty && id.invalid">Check ID</div>
-    
     <div>
         <label for="password">PassWord</label>
-        <input name="password" type="password" placeholder="password" required ngModel #password="ngModel">
+        <input 
+            name="password" 
+            type="password" 
+            placeholder="password" 
+            required 
+            ngModel 
+            pattern="[-_!A-za-z0-9]{4,10}$"
+            #password="ngModel">
     </div>
+    <div *ngIf="id.dirty && id.invalid">Check ID</div>
+    <div *ngIf="id.dirty && id.errors?.pattern">ID should be more than 4 characters, less than 10 characters.</div>
     <div *ngIf="password.dirty && password.invalid">Check PassWord</div>
-    <button>LOGIN</button>    
+    <button [disabled]="loginForm.invalid">LOGIN</button>    
 </form>
