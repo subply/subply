@@ -10,7 +10,7 @@ import { Observable } from "rxjs";
 @Injectable({
   providedIn: "root",
 })
-export class HttpConfigInerceptorService implements HttpInterceptor {
+export class HttpConfigInterceptorService implements HttpInterceptor {
   constructor() {}
 
   intercept(

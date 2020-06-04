@@ -1,16 +1,16 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed } from "@angular/core/testing";
 
-import { HttpConfigInerceptorService } from './http-config-inerceptor.service';
+import { HttpConfigInterceptorService } from "./http-config-interceptor.service";
 
-describe('HttpConfigInerceptorService', () => {
-  let service: HttpConfigInerceptorService;
+describe("HttpConfigInterceptorService", () => {
+  let service: HttpConfigInterceptorService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(HttpConfigInerceptorService);
+    service = TestBed.inject(HttpConfigInterceptorService);
   });
 
-  it('should be created', () => {
+  it("should be created", () => {
     expect(service).toBeTruthy();
   });
 });

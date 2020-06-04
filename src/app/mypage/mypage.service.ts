@@ -13,6 +13,6 @@ export class MypageService {
   constructor(private http: HttpClient, private httpHandler: HttpHandler) {}
 
   getUser(): Observable<User> {
-    return this.http.get<User>(this.URL + "/" + this.userId);
+    return this.http.get<User>(this.URL + `/` + this.userId);
   }
 }
