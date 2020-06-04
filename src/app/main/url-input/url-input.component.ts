@@ -13,9 +13,15 @@ export class UrlInputComponent implements OnInit {
   ngOnInit() { }
 
   goButtonClicked(){
+    
     const url = (<HTMLInputElement>document.getElementById("url")).value;
-    const videoId = url.split('=')[1];
-
+    let videoId = url.split('=')[1];
+    
+    const ampersandPosition = videoId.indexOf('&');
+    if(ampersandPosition != -1) {
+      videoId = videoId.substring(0, ampersandPosition);
+    }
+    
     if(!videoId) return alert('올바른 url을 입력 해 주세요!');
     this.router.navigate([`/translate/${videoId}`]);
 
