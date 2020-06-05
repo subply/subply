@@ -7,6 +7,7 @@ import { NotFoundComponent } from "./main/not-found/not-found.component";
 import { MypageComponent } from "./mypage/mypage.component";
 import { RankComponent } from "./rank/rank.component";
 import { LoginComponent } from './header/login/login.component'
+import { JoinComponent } from './header/join/join.component'
 
 const routes: Routes = [
   { path: "", redirectTo: "url-input", pathMatch: "full" },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: "mypage", component: MypageComponent },
   { path: "rank", component: RankComponent },
   { path: "login", component: LoginComponent },
+  { path: "join", component: JoinComponent },
 
   { path: "**", component: NotFoundComponent },
 ];
