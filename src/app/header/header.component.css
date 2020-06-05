@@ -1,25 +1,25 @@
-.header{
-    width: 100%;
+.header {
+  width: 100%;
 }
 
-.navbar{
-    display: flex;
-    justify-content: space-around;
-    border : 1px solid black;
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  border: 1px solid black;
 }
 
-.navbar li{
-    display: inline-block;
-    padding: 5px 10px;
-    text-decoration: none;   
+.navbar li {
+  display: inline-block;
+  padding: 5px 10px;
+  text-decoration: none;
 }
 
-.navbar a{
-    color: black;
-    text-decoration: none;
+.navbar a {
+  color: black;
+  text-decoration: none;
 }
 
-.navbar a:hover{
-    color: orange;
-    cursor: pointer;
+.navbar a:hover {
+  color: orange;
+  cursor: pointer;
 }
