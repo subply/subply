@@ -21,6 +21,10 @@ export class RawScriptComponent implements OnInit {
   ngOnInit(): void { }
 
   ngOnChanges(): void {
+    this.loadScripts();
+  }
+
+  loadScripts(){
     if (this.videoId) {
       this.URL = `http://video.google.com/timedtext?v=${this.videoId}&lang=en`;
       this.scriptService.getXMLFromURL(this.URL).subscribe(response => {
@@ -31,7 +35,6 @@ export class RawScriptComponent implements OnInit {
       })
     }
   }
-
 
   parseScriptsFromXML(xml_string) {
     parseString(xml_string, { explicitArray: false }, (error, result) => {
