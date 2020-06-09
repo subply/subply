@@ -11,7 +11,7 @@ import { TranslationComponent } from "./main/translation/translation.component";
 import { NotFoundComponent } from "./main/not-found/not-found.component";
 
 import { MypageComponent } from "./mypage/mypage.component";
-import { RankComponent } from "./rank/rank.component";
+import { RankComponent } from "./main/rank/rank.component";
 import { FooterComponent } from "./footer/footer.component";
 import { YouTubePlayerModule } from '@angular/youtube-player';
 import { RawScriptComponent } from './main/raw-script/raw-script.component';
