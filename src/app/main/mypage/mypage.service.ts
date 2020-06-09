@@ -2,13 +2,13 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
-import { User } from "../model/user.interface";
+import { User } from "../../model/user.interface";
 
 @Injectable({
   providedIn: "root",
 })
 export class MypageService {
-  userId = "ron12";
+  userId = "test";
   URL = "http://localhost:3000/user";
 
   constructor(private http: HttpClient) {}
