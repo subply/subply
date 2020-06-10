@@ -16,9 +16,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void { }
 
   onSubmit(loginForm: NgForm){
-    const id = loginForm.value.id;
-    const password = loginForm.value.password;
-    
+    const {id, password} = loginForm.value;    
     this.loginService.login(id, password)
     .subscribe(data=> data.login? this.isLogined = true : this.isLogined = false);
 
