@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { LoginService } from '../../../service/login.service';
+import { Router } from '@angular/router'
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -8,9 +9,11 @@ import { LoginService } from '../../../service/login.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private loginService: LoginService) { }
+  constructor(private loginService: LoginService, private route: Router) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    if(localStorage.getItem("id")) this.route.navigate(['/']);
+  }
 
   onSubmit(loginForm: NgForm) {
     const { id, password } = loginForm.value;
