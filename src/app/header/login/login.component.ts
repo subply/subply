@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import config from '../../../config/config.json';
+import { LoginService } from '../../../service/login.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -8,13 +8,21 @@ import config from '../../../config/config.json';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  isLogined : boolean
+  constructor(private loginService: LoginService) { 
+    this.isLogined = false;
+  }
 
-  ngOnInit(): void {
-    console.log(config.server_url);
-  }
+  ngOnInit(): void { }
+
   onSubmit(loginForm: NgForm){
-    console.log(loginForm);
+    const id = loginForm.value.id;
+    const password = loginForm.value.password;
+    
+    this.loginService.login(id, password)
+    .subscribe(data=> data.login? this.isLogined = true : this.isLogined = false);
+
   }
+
 
 }

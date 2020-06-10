@@ -23,6 +23,9 @@
             pattern="[-_!A-za-z0-9]{4,10}$"
             #password="ngModel">
     </div>
+
+    <div [innerHTML]="isLogined"></div>
+
     <div *ngIf="id.dirty && id.invalid">Check ID</div>
     <div *ngIf="id.dirty && id.errors?.pattern">ID should be more than 4 characters, less than 10 characters.</div>
     <div *ngIf="password.dirty && password.invalid">Check PassWord</div>
