@@ -12,15 +12,14 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  onSubmit(loginForm: NgForm){
-    const {id, password} = loginForm.value;    
+  onSubmit(loginForm: NgForm) {
+    const { id, password } = loginForm.value;
     this.loginService.login(id, password)
-    .subscribe(data=> 
-      data.login? 
-      this.loginService.setLocalStorage(id) :
-      alert('login failed')
-    );
-    
+      .subscribe(data => {
+        if(!data.login) return alert('login failed');
+        this.loginService.setLocalStorage(id);
+        window.location.reload();
+      });
   }
 
 

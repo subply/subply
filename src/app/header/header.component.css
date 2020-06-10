@@ -42,3 +42,7 @@
   color: orange;
   cursor: pointer;
 }
+
+.invisible{
+  display: none;
+}

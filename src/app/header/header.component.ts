@@ -7,13 +7,21 @@ import { Router } from '@angular/router'
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private route: Router) { }
+  isLogined : boolean
+  constructor(private route: Router) {
+    this.isLogined = localStorage.getItem("id")? true : false;
+  }
 
   ngOnInit() {
   }
 
   login(){
     this.route.navigate(['/login']);
+  }
+
+  logout(){
+    localStorage.removeItem("id");
+    window.location.reload();
   }
 
   join(){
