@@ -5,6 +5,17 @@
 </ng-template>
 
 <ng-template #success>
+  <reply>
+    <div>
+      <input type="text" /> &nbsp;
+      <span><input type="submit" value="✔️" /></span>
+      <br />
+      <replymeta>
+        닉네임: OOO
+      </replymeta>
+    </div>
+  </reply>
+
   <translationBox *ngFor="let script of translations.scripts">
     <div *ngFor="let trans of script.translations">
       [번역] <br />

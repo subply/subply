@@ -17,12 +17,6 @@ export class TranslationReplyComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (!changes.scriptIndex.firstChange) {
       this.getTranslationReply();
-      // console.log(
-      //   "2번째 이상의 변화. " +
-      //     changes.scriptIndex.previousValue +
-      //     " => " +
-      //     changes.scriptIndex.currentValue
-      // );
     }
   }
 

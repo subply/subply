@@ -23,3 +23,21 @@ translationBox div replymeta {
   padding-left: 150px;
   color: grey;
 }
+
+reply div {
+  padding-top: 3px;
+  padding-left: 25px;
+  margin: 10px;
+  width: 450px;
+  height: 130px;
+  border: 1.2px solid orange;
+}
+
+reply div input {
+  margin-top: 45px;
+}
+
+reply replymeta {
+  padding-left: 150px;
+  color: grey;
+}

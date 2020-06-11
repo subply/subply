@@ -16,8 +16,6 @@ export class TranslationService {
     videoId: string,
     scriptIndex: string
   ): Observable<Translation> {
-    console.log(this.URL + `video/${videoId}/script/${scriptIndex}`);
-
     return (
       this.http
         // .get<Translation>(this.URL + `video/${videoId}/script/${scriptIndex}`)
