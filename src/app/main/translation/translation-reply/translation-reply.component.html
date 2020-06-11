@@ -1,0 +1,16 @@
+<div *ngIf="loadingState === true; then success; else ready"></div>
+
+<ng-template #ready>
+  자막 블록을 선택해 주세요.
+</ng-template>
+
+<ng-template #success>
+  <translationBox *ngFor="let script of translations.scripts">
+    <div *ngFor="let trans of script.translations">
+      [번역] <br />
+      <tran>{{ trans.translated }}</tran> <br />
+      <br />
+      <replymeta> 닉네임: {{ trans.userId }} 👍: {{ trans.votes }} </replymeta>
+    </div>
+  </translationBox>
+</ng-template>

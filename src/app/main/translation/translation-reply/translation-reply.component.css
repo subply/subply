@@ -1,0 +1,25 @@
+div {
+  margin: 10px;
+}
+
+translationBox {
+  margin-top: 5px;
+}
+
+translationBox div {
+  padding-top: 3px;
+  padding-left: 25px;
+  margin: 10px;
+  width: 450px;
+  height: 130px;
+  border: 1.2px solid black;
+}
+
+div tran {
+  font-size: 25px;
+}
+
+translationBox div replymeta {
+  padding-left: 150px;
+  color: grey;
+}

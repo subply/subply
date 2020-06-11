@@ -1,6 +1,15 @@
-
-<youtube-player
-    videoId={{videoId}}
-    (ready)="onPlayerReady($event)"
-></youtube-player>
-<app-raw-script [videoId]="videoId"></app-raw-script>
+<div class="row">
+  <div class="left col-md-7">
+    <youtube-player
+      videoId="{{ videoId }}"
+      (ready)="onPlayerReady($event)"
+    ></youtube-player>
+    <app-raw-script
+      [videoId]="videoId"
+      (scriptEvent)="changeScriptIndex($event)"
+    ></app-raw-script>
+  </div>
+  <div class="right col-md-5">
+    <translation-reply [scriptIndex]="scriptIndex"> </translation-reply>
+  </div>
+</div>

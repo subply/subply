@@ -2,7 +2,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { AppRoutingModule } from "./app-routing.module";
 import { FormsModule } from "@angular/forms";
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from "@angular/common/http";
 
 import { AppComponent } from "./app.component";
 import { UrlInputComponent } from "./main/url-input/url-input.component";
@@ -13,8 +13,9 @@ import { NotFoundComponent } from "./main/not-found/not-found.component";
 import { MypageComponent } from "./main/mypage/mypage.component";
 import { RankComponent } from "./main/rank/rank.component";
 import { FooterComponent } from "./footer/footer.component";
-import { YouTubePlayerModule } from '@angular/youtube-player';
-import { RawScriptComponent } from './main/raw-script/raw-script.component';
+import { YouTubePlayerModule } from "@angular/youtube-player";
+import { RawScriptComponent } from "./main/raw-script/raw-script.component";
+import { TranslationReplyComponent } from "./main/translation/translation-reply/translation-reply.component";
 
 @NgModule({
   declarations: [
@@ -27,13 +28,14 @@ import { RawScriptComponent } from './main/raw-script/raw-script.component';
     RankComponent,
     FooterComponent,
     RawScriptComponent,
+    TranslationReplyComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     YouTubePlayerModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
