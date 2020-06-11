@@ -12,6 +12,9 @@
             ngModel 
             #id="ngModel">
     </div>
+    <p *ngIf="id.dirty && id.invalid">Check ID</p>
+    <p *ngIf="id.dirty && id.errors?.pattern">ID should be more than 4 characters, less than 10 characters.</p>
+
     <div>
         <label for="password">PassWord</label>
         <input 
@@ -23,9 +26,7 @@
             pattern="[-_!A-za-z0-9]{4,10}$"
             #password="ngModel">
     </div>
-
-    <div *ngIf="id.dirty && id.invalid">Check ID</div>
-    <div *ngIf="id.dirty && id.errors?.pattern">ID should be more than 4 characters, less than 10 characters.</div>
-    <div *ngIf="password.dirty && password.invalid">Check PassWord</div>
+    <p *ngIf="password.dirty && password.invalid">Check PassWord</p>
+    
     <button [disabled]="loginForm.invalid">LOGIN</button>    
 </form>
