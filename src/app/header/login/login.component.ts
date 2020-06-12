@@ -12,7 +12,7 @@ export class LoginComponent implements OnInit {
   constructor(private loginService: LoginService, private route: Router) { }
 
   ngOnInit(): void {
-    if(localStorage.getItem("id")) this.route.navigate(['/']);
+    if(sessionStorage.getItem("id")) this.route.navigate(['/']);
   }
 
   onSubmit(loginForm: NgForm) {
@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
     this.loginService.login(id, password)
       .subscribe(data => {
         if(!data.login) return alert('login failed');
-        this.loginService.setLocalStorage(id);
+        this.loginService.setSessionStorage(id);
         window.location.reload();
       });
   }

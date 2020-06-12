@@ -14,8 +14,8 @@ export class LoginService {
     return this.http.post<any>(`${config.server_url}/user/login`, { id, password });
   }
 
-  setLocalStorage(id){
-    localStorage.setItem("id", id);
+  setSessionStorage(id){
+    sessionStorage.setItem("id", id);
   }
 
 }

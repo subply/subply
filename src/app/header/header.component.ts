@@ -9,7 +9,7 @@ export class HeaderComponent implements OnInit {
 
   isLogined : boolean
   constructor(private route: Router) {
-    this.isLogined = localStorage.getItem("id")? true : false;
+    this.isLogined = sessionStorage.getItem("id")? true : false;
   }
 
   ngOnInit() {
@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
   }
 
   logout(){
-    localStorage.removeItem("id");
+    sessionStorage.removeItem("id");
     window.location.reload();
   }
 
