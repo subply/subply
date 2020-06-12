@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { MypageService } from "./mypage.service";
-import { User } from "../model/user.interface";
+import { User } from "../../model/user.interface";
 
 @Component({
   selector: "app-mypage",
