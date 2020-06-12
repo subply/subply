@@ -7,8 +7,8 @@
 <ng-template #success>
   <reply>
     <div>
-      <input type="text" /> &nbsp;
-      <span><input type="submit" value="✔️" /></span>
+      <input type="text" id="sentence" /> &nbsp;
+      <span><button (click)="createReply()">✔️</button> </span>
       <br />
       <replymeta>
         닉네임: OOO
@@ -16,12 +16,16 @@
     </div>
   </reply>
 
-  <translationBox *ngFor="let script of translations.scripts">
-    <div *ngFor="let trans of script.translations">
-      [번역] <br />
-      <tran>{{ trans.translated }}</tran> <br />
-      <br />
-      <replymeta> 닉네임: {{ trans.userId }} 👍: {{ trans.votes }} </replymeta>
-    </div>
+  <translationBox *ngFor="let script of translations.scripts; let i = index">
+    <tran *ngIf="i == scriptIndex">
+      <div *ngFor="let trans of script.translations">
+        [번역] <br />
+        <tran>{{ trans.translated }}</tran> <br />
+        <br />
+        <replymeta>
+          닉네임: {{ trans.userId }} 👍: {{ trans.votes.length }}
+        </replymeta>
+      </div>
+    </tran>
   </translationBox>
 </ng-template>

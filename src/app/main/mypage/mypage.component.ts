@@ -26,7 +26,6 @@ export class MypageComponent implements OnInit {
   ngOnInit() {}
 
   getUser() {
-    console.log("getUser work!");
     this.mypageService.getUser().subscribe(
       (user) => (this.user = user),
       (error) => console.log("[MypageService.getUser]", error)

@@ -10,7 +10,6 @@ export class TranslationComponent implements OnInit {
   constructor(private route: ActivatedRoute) {}
   videoId: string;
   player: any;
-  // scriptIndex: number;
   scriptIndex: string;
 
   //rawScript 컴포넌트에서 값 받아 scriptIndex에 저장

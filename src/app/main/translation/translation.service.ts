@@ -8,22 +8,20 @@ import { Translation } from "../../model/translation.interface";
   providedIn: "root",
 })
 export class TranslationService {
-  URL = "localhost:3000/translation/"; //video/:videoId/script/:order";
+  SERVER_URL = "http://localhost:3000/translation/";
 
   constructor(private http: HttpClient) {}
 
-  getTranslations(
-    videoId: string,
-    scriptIndex: string
-  ): Observable<Translation> {
-    return (
-      this.http
-        // .get<Translation>(this.URL + `video/${videoId}/script/${scriptIndex}`)
-        .get<Translation>(
-          "http://localhost:3000/translation/video/v=byz_-fKm_6/script/0"
-        )
-        .pipe(catchError(this.handleError))
-    );
+  getTranslations(videoId: String): Observable<Translation> {
+    return this.http
+      .get<Translation>(this.SERVER_URL + videoId)
+      .pipe(catchError(this.handleError));
+  }
+
+  updateTranslation(videoId: String, object: Translation): Observable<any> {
+    return this.http
+      .put(this.SERVER_URL + videoId, object)
+      .pipe(catchError(this.handleError));
   }
 
   private handleError(errorRes: HttpErrorResponse) {
