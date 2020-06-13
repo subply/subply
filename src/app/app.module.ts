@@ -10,12 +10,14 @@ import { HeaderComponent } from "./header/header.component";
 import { TranslationComponent } from "./main/translation/translation.component";
 import { NotFoundComponent } from "./main/not-found/not-found.component";
 
-import { MypageComponent } from "./main/mypage/mypage.component";
+import { MypageComponent } from "./mypage/mypage.component";
 import { RankComponent } from "./main/rank/rank.component";
 import { FooterComponent } from "./footer/footer.component";
-import { YouTubePlayerModule } from "@angular/youtube-player";
-import { RawScriptComponent } from "./main/raw-script/raw-script.component";
+import { YouTubePlayerModule } from '@angular/youtube-player';
+import { RawScriptComponent } from './main/raw-script/raw-script.component';
 import { TranslationReplyComponent } from "./main/translation/translation-reply/translation-reply.component";
+import { LoginComponent } from './header/login/login.component';
+import { JoinComponent } from './header/join/join.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ import { TranslationReplyComponent } from "./main/translation/translation-reply/
     FooterComponent,
     RawScriptComponent,
     TranslationReplyComponent,
+    LoginComponent,
+    JoinComponent,
   ],
   imports: [
     BrowserModule,

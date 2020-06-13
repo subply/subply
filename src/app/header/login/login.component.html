@@ -1,0 +1,32 @@
+<h2>LOGIN</h2>
+
+<form #loginForm = "ngForm" (ngSubmit)="onSubmit(loginForm)" novalidate>
+    <div>
+        <label for="id">ID</label>
+        <input 
+            name="id"
+            type="text" 
+            placeholder="id" 
+            required 
+            pattern="[-_!A-za-z0-9]{4,10}$"
+            ngModel 
+            #id="ngModel">
+    </div>
+    <p *ngIf="id.dirty && id.invalid">Check ID</p>
+    <p *ngIf="id.dirty && id.errors?.pattern">ID should be more than 4 characters, less than 10 characters.</p>
+
+    <div>
+        <label for="password">PassWord</label>
+        <input 
+            name="password" 
+            type="password" 
+            placeholder="password" 
+            required 
+            ngModel 
+            pattern="[-_!A-za-z0-9]{4,10}$"
+            #password="ngModel">
+    </div>
+    <p *ngIf="password.dirty && password.invalid">Check PassWord</p>
+    
+    <button [disabled]="loginForm.invalid">LOGIN</button>    
+</form>
