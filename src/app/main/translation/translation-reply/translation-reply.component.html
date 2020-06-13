@@ -18,12 +18,12 @@
 
   <translationBox *ngFor="let script of translations.scripts; let i = index">
     <tran *ngIf="i == scriptIndex">
-      <div *ngFor="let trans of script.translations">
+      <div *ngFor="let subply of script.subplies">
         [번역] <br />
-        <tran>{{ trans.translated }}</tran> <br />
+        <tran>{{ subply.translated }}</tran> <br />
         <br />
         <replymeta>
-          닉네임: {{ trans.userId }} 👍: {{ trans.votes.length }}
+          닉네임: {{ subply.userId }} 👍: {{ subply.votes.length }}
         </replymeta>
       </div>
     </tran>

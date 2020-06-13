@@ -13,7 +13,7 @@ export class TranslationReplyComponent implements OnChanges {
   loadingState = false;
   videoId = "v=byz_-fKm_6";
 
-  newTranslation = {
+  newSubply = {
     userId: "",
     translated: "",
     vodtes: [],
@@ -40,14 +40,14 @@ export class TranslationReplyComponent implements OnChanges {
   }
 
   setUser() {
-    this.newTranslation.userId = "dd";
+    this.newSubply.userId = "dd";
   }
 
   createReply() {
     //translation 객체에 포함,서비스 호출,input 비우기,
     const sentence = (<HTMLInputElement>document.getElementById("sentence"))
       .value;
-    this.newTranslation.translated = sentence;
+    this.newSubply.translated = sentence;
     this.addReply(sentence);
     this.clearText();
   }
@@ -57,7 +57,7 @@ export class TranslationReplyComponent implements OnChanges {
 
     let translationArr = this.translations.scripts[this.scriptIndex]
       .translations;
-    translationArr.push(this.newTranslation);
+    translationArr.push(this.newSubply);
     this.translations.scripts[this.scriptIndex].translations = translationArr;
 
     // this.translationService

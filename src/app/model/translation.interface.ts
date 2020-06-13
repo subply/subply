@@ -4,7 +4,7 @@ export interface Translation {
   scripts: [
     {
       raw: string;
-      translations: [
+      subplies: [
         {
           userId: String;
           translated: String;
