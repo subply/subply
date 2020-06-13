@@ -9,9 +9,9 @@ import { Translation } from "../../../model/translation.interface";
 })
 export class TranslationReplyComponent implements OnChanges {
   @Input() scriptIndex: string;
+  @Input() videoId: string;
   translations: Translation;
   loadingState = false;
-  videoId = "v=byz_-fKm_6";
 
   newSubply = {
     userId: "",
@@ -40,7 +40,7 @@ export class TranslationReplyComponent implements OnChanges {
   }
 
   setUser() {
-    this.newSubply.userId = "dd";
+    this.newSubply.userId = sessionStorage.getItem("id");
   }
 
   createReply() {
