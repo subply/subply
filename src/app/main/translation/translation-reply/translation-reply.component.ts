@@ -1,5 +1,5 @@
 import { Component, OnChanges, Input, SimpleChanges } from "@angular/core";
-import { TranslationService } from "../translation.service";
+import { TranslationService } from "../../../../service/translation.service";
 import { Translation } from "../../../model/translation.interface";
 
 @Component({
@@ -28,10 +28,12 @@ export class TranslationReplyComponent implements OnChanges {
   }
 
   getTranslations() {
+    console.log("vodeoId:" + this.videoId);
     this.translationService.getTranslations(this.videoId).subscribe(
       (translations) => {
         this.translations = translations;
         this.loadingState = true;
+        console.log(translations);
       },
       (error) => console.log("[getTranslations 에러]" + error)
     );

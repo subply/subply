@@ -17,6 +17,7 @@ export class HttpConfigInterceptorService implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
+    console.log("인터셉트 일하는중");
     request = request.clone({
       withCredentials: true,
     });
