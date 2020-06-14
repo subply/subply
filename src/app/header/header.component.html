@@ -1,6 +1,12 @@
 <div class="header">
-  <h2>SubPly</h2>
-
+  <div class="title">
+    <h2>SubPly</h2>
+    <div class="title__btn">
+      <button class="title__btn--login" [ngClass]="{'invisible':isLogined}" (click)="login()">log in</button>
+      <button class="title__btn--join" [ngClass]="{'invisible':isLogined}" (click)="join()">join</button>
+      <button class="title__btn--logout" [ngClass]="{'invisible':!isLogined}" (click)="logout()">logout</button>  
+    </div>
+  </div>
   <nav class="navbar">
     <li><a routerLink="/">home</a> <br /></li>
     <li><a routerLink="translate">translate</a><br /></li>
