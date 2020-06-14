@@ -2,20 +2,25 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
-import { User } from "../model/user.interface";
+import { Translation } from "../../model/translation.interface";
 
 @Injectable({
   providedIn: "root",
 })
-export class MypageService {
-  userId = "ron12";
-  URL = "http://localhost:3000/user";
+export class TranslationService {
+  SERVER_URL = "http://localhost:3000/translation/";
 
   constructor(private http: HttpClient) {}
 
-  getUser(): Observable<User> {
+  getTranslations(videoId: String): Observable<Translation> {
     return this.http
-      .get<User>(this.URL + `/` + this.userId)
+      .get<Translation>(this.SERVER_URL + videoId)
+      .pipe(catchError(this.handleError));
+  }
+
+  updateTranslation(videoId: String, object: Translation): Observable<any> {
+    return this.http
+      .put(this.SERVER_URL + videoId, object)
       .pipe(catchError(this.handleError));
   }
 

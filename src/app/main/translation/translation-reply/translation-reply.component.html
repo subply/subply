@@ -1,0 +1,31 @@
+<div *ngIf="loadingState === true; then success; else ready"></div>
+
+<ng-template #ready>
+  자막 블록을 선택해 주세요.
+</ng-template>
+
+<ng-template #success>
+  <reply>
+    <div>
+      <input type="text" id="sentence" /> &nbsp;
+      <span><button (click)="createReply()">✔️</button> </span>
+      <br />
+      <replymeta>
+        닉네임: OOO
+      </replymeta>
+    </div>
+  </reply>
+
+  <translationBox *ngFor="let script of translations.scripts; let i = index">
+    <tran *ngIf="i == scriptIndex">
+      <div *ngFor="let subply of script.subplies">
+        [번역] <br />
+        <tran>{{ subply.translated }}</tran> <br />
+        <br />
+        <replymeta>
+          닉네임: {{ subply.userId }} 👍: {{ subply.votes.length }}
+        </replymeta>
+      </div>
+    </tran>
+  </translationBox>
+</ng-template>

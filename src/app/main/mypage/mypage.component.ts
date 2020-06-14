@@ -14,15 +14,11 @@ export class MypageComponent implements OnInit {
   constructor(private http: HttpClient, private mypageService: MypageService) {
     this.user = {
       _id: null,
-      Videos: null,
-      Translations: null,
-      Votes: null,
-      Name: null,
-      UserId: null,
-      Password: null,
-      Nickname: null,
-      ProfileImage: null,
-      ContributedTime: null,
+      name: null,
+      userId: null,
+      password: null,
+      nickname: null,
+      profilePhoto: null,
     };
     this.getUser();
   }

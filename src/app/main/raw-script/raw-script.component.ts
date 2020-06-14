@@ -1,14 +1,14 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { parseString } from 'xml2js';
-import { ScriptsService } from '../../../service/scripts.service'
+import { Component, OnInit, Input } from "@angular/core";
+import { Output, EventEmitter } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { parseString } from "xml2js";
+import { ScriptsService } from "../../../service/scripts.service";
 
 @Component({
-  selector: 'app-raw-script',
-  templateUrl: './raw-script.component.html',
-  styleUrls: ['./raw-script.component.css']
+  selector: "app-raw-script",
+  templateUrl: "./raw-script.component.html",
+  styleUrls: ["./raw-script.component.css"],
 })
-
 export class RawScriptComponent implements OnInit {
   scripts: Array<object> = [];
   @Input() videoId: string;
@@ -16,23 +16,31 @@ export class RawScriptComponent implements OnInit {
   scriptExist: boolean = false;
   loading: boolean = true;
 
-  constructor(private http: HttpClient, private scriptService: ScriptsService) { }
+  constructor(
+    private http: HttpClient,
+    private scriptService: ScriptsService
+  ) {}
 
-  ngOnInit(): void { }
+  @Output() scriptEvent = new EventEmitter();
+
+  ngOnInit(): void {}
 
   ngOnChanges(): void {
     this.loadScripts();
   }
 
-  loadScripts(){
+  loadScripts() {
     if (this.videoId) {
       this.URL = `http://video.google.com/timedtext?v=${this.videoId}&lang=en`;
-      this.scriptService.getXMLFromURL(this.URL).subscribe(response => {
-        if(!response){ this.loading = false; return; } 
+      this.scriptService.getXMLFromURL(this.URL).subscribe((response) => {
+        if (!response) {
+          this.loading = false;
+          return;
+        }
         this.parseScriptsFromXML(response);
         this.scriptExist = true;
         this.loading = false;
-      })
+      });
     }
   }
 
@@ -49,16 +57,18 @@ export class RawScriptComponent implements OnInit {
           this.scripts.push({
             script: script._,
             startTime: start,
-            endTime: end
-          })
+            endTime: end,
+          });
         });
       }
     });
-
   }
 
   handleclick(i) {
     console.log(i);
-  }
 
+    this.scriptEvent.emit({
+      scriptIndex: i,
+    });
+  }
 }

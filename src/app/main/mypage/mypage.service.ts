@@ -8,7 +8,7 @@ import { User } from "../../model/user.interface";
   providedIn: "root",
 })
 export class MypageService {
-  userId = "ron12";
+  userId = "test";
   URL = "http://localhost:3000/user";
 
   constructor(private http: HttpClient) {}

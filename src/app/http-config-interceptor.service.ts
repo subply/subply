@@ -17,7 +17,6 @@ export class HttpConfigInterceptorService implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    console.log("interceptor working");
     request = request.clone({
       withCredentials: true,
     });
@@ -25,5 +24,3 @@ export class HttpConfigInterceptorService implements HttpInterceptor {
     return next.handle(request);
   }
 }
-
-
