@@ -25,8 +25,6 @@ export class TranslationReplyComponent implements OnChanges {
     if (!changes.scriptIndex.firstChange) {
       this.getTranslations();
     }
-
-    this.setUser();
   }
 
   getTranslations() {
@@ -44,7 +42,7 @@ export class TranslationReplyComponent implements OnChanges {
   }
 
   createReply() {
-    //translation 객체에 포함,서비스 호출,input 비우기,
+    this.setUser();
     const sentence = (<HTMLInputElement>document.getElementById("sentence"))
       .value;
     this.newSubply.translated = sentence;
@@ -53,21 +51,10 @@ export class TranslationReplyComponent implements OnChanges {
   }
 
   addReply(sentence: String) {
-    //서비스 호출. 더하려는 객체와 식별자 넘기기
-
     let translationArr = this.translations.scripts[this.scriptIndex]
       .translations;
     translationArr.push(this.newSubply);
     this.translations.scripts[this.scriptIndex].translations = translationArr;
-
-    // this.translationService
-    //   .updateTranslation("v=byz_-fKm_6", this.translations)
-    //   .subscribe(
-    //     (translations) => {
-    //       this.translations = translations;
-    //     },
-    //     (error) => console.log("[getTranslations 에러]" + error)
-    //   );
   }
 
   clearText() {
