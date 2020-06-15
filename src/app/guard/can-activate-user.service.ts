@@ -13,10 +13,8 @@ export class CanActivateUserService implements CanActivate {
     state: RouterStateSnapshot
   ): Observable<boolean> | boolean {
     if (this.loginService.isLoggedIn()) {
-      window.alert("로그인 후 이용 바랍니다.");
       return true;
     } else {
-      console.log("로그인 안되어 있음!");
       this.router.navigate([`/login`]);
       return false;
     }
