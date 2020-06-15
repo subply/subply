@@ -19,4 +19,8 @@ export class LoginService {
   setSessionStorage(id) {
     sessionStorage.setItem("id", id);
   }
+
+  isLoggedIn(): boolean {
+    return sessionStorage.getItem("id") ? true : false;
+  }
 }

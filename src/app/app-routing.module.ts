@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
+import { Routes, RouterModule, CanActivate } from "@angular/router";
 
 import { UrlInputComponent } from "./main/url-input/url-input.component";
 import { TranslationComponent } from "./main/translation/translation.component";
@@ -11,6 +11,7 @@ import { JoinComponent } from "./header/join/join.component";
 import { MyInformationComponent } from "./main/mypage/navigation/my-information/my-information.component";
 import { MySubplyComponent } from "./main/mypage/navigation/my-subply/my-subply.component";
 import { MyVoteComponent } from "./main/mypage/navigation/my-vote/my-vote.component";
+import { CanActivateUserService } from "./guard/can-activate-user.service";
 
 const routes: Routes = [
   { path: "", redirectTo: "url-input", pathMatch: "full" },
@@ -19,6 +20,7 @@ const routes: Routes = [
   {
     path: "mypage",
     component: MypageComponent,
+    canActivate: [CanActivateUserService],
     children: [
       { path: "", component: MySubplyComponent },
       { path: "mysubply", component: MySubplyComponent },
@@ -36,5 +38,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
+  providers: [CanActivateUserService],
 })
 export class AppRoutingModule {}
