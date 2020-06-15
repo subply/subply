@@ -3,19 +3,17 @@ import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { User } from "../app/model/user.interface";
+import config from "../config/config.json";
 
 @Injectable({
   providedIn: "root",
 })
 export class MypageService {
-  userId = "test";
-  URL = "http://localhost:3000/user";
-
   constructor(private http: HttpClient) {}
 
   getUser(): Observable<User> {
     return this.http
-      .get<User>(this.URL + `/` + this.userId)
+      .get<User>(`${config.server_url}/this.userId`)
       .pipe(catchError(this.handleError));
   }
 
