@@ -1,5 +1,7 @@
-mynavbar {
-  display: block 1px black;
+.mynavbar {
+  display: block;
+  /* justify-content: space-around; */
+  border: 1px solid black;
 }
 
 li {

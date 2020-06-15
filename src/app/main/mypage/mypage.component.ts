@@ -20,7 +20,6 @@ export class MypageComponent implements OnInit {
       nickname: null,
       profilePhoto: null,
     };
-    this.getUser();
   }
 
   ngOnInit() {}
