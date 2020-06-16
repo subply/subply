@@ -23,4 +23,8 @@ export class LoginService {
   isLoggedIn(): boolean {
     return sessionStorage.getItem("id") ? true : false;
   }
+
+  getUserId() {
+    return sessionStorage.getItem("id");
+  }
 }
