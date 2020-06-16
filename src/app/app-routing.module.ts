@@ -23,9 +23,9 @@ const routes: Routes = [
     canActivate: [CanActivateUserService],
     children: [
       { path: "", component: MySubplyComponent },
-      { path: "mysubply", component: MySubplyComponent },
-      { path: "myvote", component: MyVoteComponent },
-      { path: "myinfo", component: MyInformationComponent },
+      { path: "mysubply/:userId", component: MySubplyComponent },
+      { path: "myvote/:userId", component: MyVoteComponent },
+      { path: "myinfo/:userId", component: MyInformationComponent },
     ],
   },
   { path: "rank", component: RankComponent },
