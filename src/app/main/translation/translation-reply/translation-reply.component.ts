@@ -33,7 +33,6 @@ export class TranslationReplyComponent implements OnChanges {
       (translations) => {
         this.translations = translations;
         this.loadingState = true;
-        console.log(translations);
       },
       (error) => console.log("[getTranslations 에러]" + error)
     );
