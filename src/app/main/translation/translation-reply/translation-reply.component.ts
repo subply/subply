@@ -22,6 +22,7 @@ export class TranslationReplyComponent implements OnChanges {
   constructor(private translationService: TranslationService) {}
 
   ngOnChanges(changes: SimpleChanges) {
+    console.log("in")
     if (!changes.scriptIndex.firstChange) {
       this.getTranslations();
     }
