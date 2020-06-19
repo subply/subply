@@ -31,4 +31,6 @@ export class MyInformationComponent implements OnInit {
       (error) => console.log("[getUser 에러]" + error)
     );
   }
+
+  ngOnSubmit(userForm: NgForm) {}
 }

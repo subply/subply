@@ -2,8 +2,10 @@
   display: block;
   /* justify-content: space-around; */
   border: 1px solid black;
+  padding: 45px;
 }
 
 li {
   list-style: none;
+  line-height: 45px;
 }

@@ -1,7 +1,7 @@
-<h1>내 정보</h1>
-<hr />
-<div *ngIf="user">
-  <form #userForm="ngForm" novalidate>
+<div *ngIf="user" id="content_box">
+  <h1>내 정보 수정하기</h1>
+  <hr />
+  <form #userForm="ngForm" (ngSubmit)="ngOnSubmit(userForm)" novalidate>
     <div class="form-group row">
       <label class="col-sm-1 col-form-label">Photo</label>
       <div class="col-sm-5">
@@ -90,7 +90,6 @@
         닉네임을 입력해주세요
       </em>
     </div>
-    <!--  -->
 
     <br />
     <button class="btn btn-primary" type="submit">수정</button>
