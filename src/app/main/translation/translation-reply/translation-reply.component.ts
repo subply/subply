@@ -22,7 +22,6 @@ export class TranslationReplyComponent implements OnChanges {
   constructor(private translationService: TranslationService) {}
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log("in")
     if (!changes.scriptIndex.firstChange) {
       this.getTranslations();
     }
@@ -41,16 +40,19 @@ export class TranslationReplyComponent implements OnChanges {
   }
 
   setUser() {
-    this.newSubply.userId = sessionStorage.getItem("id");
+    const userId = sessionStorage.getItem("id");
+    if(!userId) return false;
+    this.newSubply.userId = userId;
   }
 
   createReply() {
     this.setUser();
     const sentence = (<HTMLInputElement>document.getElementById("sentence"))
       .value;
-    this.newSubply.translated = sentence;
-    this.addReply(sentence);
-    this.clearText();
+    console.log(sentence);
+    // this.newSubply.translated = sentence;
+    // this.addReply(sentence);
+    // this.clearText();
   }
 
   addReply(sentence: String) {
