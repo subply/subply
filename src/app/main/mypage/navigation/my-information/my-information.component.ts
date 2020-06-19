@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { NgForm } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { LoginService } from "../../../../../service/login.service";
 import { User } from "../../../../model/user.interface";
@@ -23,15 +24,11 @@ export class MyInformationComponent implements OnInit {
   }
 
   getUser() {
-    console.log(this.userId);
     this.loginService.getUser(this.userId).subscribe(
       (user) => {
         this.user = user;
-        console.log("성공");
       },
       (error) => console.log("[getUser 에러]" + error)
     );
-
-    console.log(this.user);
   }
 }

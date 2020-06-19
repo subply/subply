@@ -12,11 +12,13 @@ export class LoginService {
   constructor(private http: HttpClient) {}
 
   getUser(userId: String): Observable<User> {
-    console.log(userId);
-
     return this.http
       .get<User>(`${config.server_url}/user/${userId}`)
       .pipe(catchError(this.handleError));
+  }
+
+  updateUser(userId: String, user: User) {
+    //API 호출
   }
 
   login(id, password): Observable<any> {
