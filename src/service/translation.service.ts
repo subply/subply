@@ -17,7 +17,7 @@ export class TranslationService {
       .pipe(catchError(this.handleError));
   }
 
-  updateTranslation(videoId: String, object: Translation): Observable<any> {
+  updateTranslation(videoId: String, object: Translation): Observable<any> {    
     return this.http
       .put(`${config.server_url}/translation/${videoId}`, object)
       .pipe(catchError(this.handleError));

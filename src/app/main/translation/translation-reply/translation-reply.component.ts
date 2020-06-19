@@ -8,7 +8,7 @@ import { Translation } from "../../../model/translation.interface";
   styleUrls: ["./translation-reply.component.css"],
 })
 export class TranslationReplyComponent implements OnChanges {
-  @Input() scriptIndex: string;
+  @Input() scriptIndex: number;
   @Input() videoId: string;
   translations: Translation;
   loadingState = false;
@@ -16,7 +16,8 @@ export class TranslationReplyComponent implements OnChanges {
   newSubply = {
     userId: "",
     translated: "",
-    vodtes: [],
+    votes: [],
+    index: -1,
   };
 
   constructor(private translationService: TranslationService) {}
@@ -41,25 +42,26 @@ export class TranslationReplyComponent implements OnChanges {
 
   setUser() {
     const userId = sessionStorage.getItem("id");
-    if(!userId) return false;
+    if(!userId) {
+      alert('로그인 해 주세요');
+      return false;
+    }
     this.newSubply.userId = userId;
   }
 
   createReply() {
     this.setUser();
-    const sentence = (<HTMLInputElement>document.getElementById("sentence"))
-      .value;
-    console.log(sentence);
-    // this.newSubply.translated = sentence;
-    // this.addReply(sentence);
-    // this.clearText();
+    const sentence = (<HTMLInputElement>document.getElementById("sentence")).value;
+    if(!sentence) { alert("입력 안 됨"); return false; }
+    this.newSubply.translated = sentence;
+    this.newSubply.index = this.scriptIndex;
+    this.addReply(this.newSubply);
+    this.clearText();
   }
 
-  addReply(sentence: String) {
-    let translationArr = this.translations.scripts[this.scriptIndex]
-      .translations;
-    translationArr.push(this.newSubply);
-    this.translations.scripts[this.scriptIndex].translations = translationArr;
+  addReply(reply: any) {
+    this.translationService.updateTranslation(this.videoId, reply)
+    .subscribe((ret)=>console.log(ret));
   }
 
   clearText() {

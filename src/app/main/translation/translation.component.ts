@@ -10,7 +10,7 @@ export class TranslationComponent implements OnInit {
   constructor(private route: ActivatedRoute) {}
   videoId: string;
   player: any;
-  scriptIndex: string;
+  scriptIndex: Number;
 
   //rawScript 컴포넌트에서 값 받아 scriptIndex에 저장
 
@@ -30,6 +30,6 @@ export class TranslationComponent implements OnInit {
   }
 
   changeScriptIndex(scriptInfo) {
-    this.scriptIndex = `${scriptInfo.scriptIndex}`;
+    this.scriptIndex = scriptInfo.scriptIndex;
   }
 }
