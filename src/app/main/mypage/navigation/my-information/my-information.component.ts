@@ -34,9 +34,9 @@ export class MyInformationComponent implements OnInit {
     );
   }
 
-  updateUser(user: any) {
-    this.userService.updateUser(this.userId, user).subscribe((user) => {
-      console.log(user);
+  updateUser(obj: any) {
+    this.userService.updateUser(this.userId, obj).subscribe((user) => {
+      this.user = user;
     }),
       (error) => console.log("[updateUser 에러]" + error);
   }
