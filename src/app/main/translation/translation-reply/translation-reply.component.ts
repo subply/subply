@@ -1,6 +1,7 @@
 import { Component, OnChanges, Input, SimpleChanges } from "@angular/core";
 import { TranslationService } from "../../../../service/translation.service";
 import { Translation } from "../../../model/translation.interface";
+import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
 
 @Component({
   selector: "translation-reply",
@@ -33,9 +34,25 @@ export class TranslationReplyComponent implements OnChanges {
       (translations) => {
         this.translations = translations;
         this.loadingState = true;
+        console.log("2");
       },
-      (error) => console.log("[getTranslations 에러]" + error)
+      (error) => {
+        console.log("[getTranslations 에러]" + error);
+      }
     );
+  }
+
+  returnSubpliesByIndex() {
+    // let result;
+    // this.translationService
+    // .getTranslations(this.videoId)
+    // .subscribe(translations=> result=translations,(error) => {
+    //   console.log("[returnTranslations 에러]" + error);
+    // });
+    // return result.script[this.scriptIndex].subplies;
+    console.log("1");
+    this.getTranslations();
+    return this.translations.scripts[this.scriptIndex].subplies;
   }
 
   setUser() {
@@ -64,5 +81,33 @@ export class TranslationReplyComponent implements OnChanges {
     );
 
     sentenceButton.value = "";
+  }
+
+  changeSort(val: string) {
+    if (val === "dateAsc") {
+      this.getTranslations();
+    } else if (val === "dateDesc") {
+      this.returnSubpliesByIndex(); // .reverse();
+      console.log("3");
+      this.sortReverse();
+    } else if (val === "voteAsc") {
+      this.sortByVote().reverse();
+    } else if (val === "voteDesc") {
+      this.sortByVote();
+    }
+  }
+
+  sortReverse() {
+    this.translations.scripts[0].subplies.reverse();
+  }
+
+  sortByVote() {
+    return this.translations.scripts[0].subplies.sort(function (a, b) {
+      return a.votes.length > b.votes.length
+        ? -1
+        : a.votes.length < b.votes.length
+        ? 1
+        : 0;
+    });
   }
 }
