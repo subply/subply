@@ -6,16 +6,17 @@
 
 <ng-template #success>
   <button (click)="changeSort('dateAsc')">최근 순</button>
-  <button (click)="changeSort('voteAsc')">좋아요 오름차순</button>
-  <button (click)="changeSort('voteDesc')">좋아요 내림차순</button>
+  <button (click)="changeSort('voteDesc')">좋아요 높은 순</button>
+  <button (click)="changeSort('voteAsc')">좋아요 낮은 순</button>
 
   <reply>
     <div>
       <input type="text" id="sentence" /> &nbsp;
       <span><button (click)="createReply()">✔️</button> </span>
       <br />
+
       <replymeta>
-        닉네임: OOO
+        닉네임:
       </replymeta>
     </div>
   </reply>
