@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { MypageService } from "../../../service/mypage.service";
+import { UserService } from "../../../service/user.service";
 import { User } from "../../model/user.interface";
 import { LoginService } from "src/service/login.service";
 
@@ -13,7 +13,7 @@ export class MypageComponent implements OnInit {
   userId: String;
 
   constructor(
-    private mypageService: MypageService,
+    private userService: UserService,
     private loginService: LoginService
   ) {
     this.user = {
@@ -31,9 +31,9 @@ export class MypageComponent implements OnInit {
   }
 
   getUser() {
-    this.mypageService.getUser().subscribe(
+    this.userService.getUser(this.userId).subscribe(
       (user) => (this.user = user),
-      (error) => console.log("[MypageService.getUser]", error)
+      (error) => console.log("[getUser() error]", error)
     );
   }
 }

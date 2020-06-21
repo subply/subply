@@ -21,6 +21,7 @@ import { MyInformationComponent } from "./main/mypage/navigation/my-information/
 import { MyVoteComponent } from "./main/mypage/navigation/my-vote/my-vote.component";
 import { MySubplyComponent } from "./main/mypage/navigation/my-subply/my-subply.component";
 import { MyNavbarComponent } from "./main/mypage/my-navbar/my-navbar.component";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { MyNavbarComponent } from "./main/mypage/my-navbar/my-navbar.component";
     YouTubePlayerModule,
     FormsModule,
     HttpClientModule,
+    NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,18 +1,29 @@
-import { Component, OnChanges, Input, SimpleChanges } from "@angular/core";
+import { Component, Input, SimpleChanges } from "@angular/core";
+import { OnInit, OnChanges } from "@angular/core";
 import { TranslationService } from "../../../../service/translation.service";
 import { Translation } from "../../../model/translation.interface";
 import { User } from "../../../model/user.interface";
+import { UserService } from "../../../../service/user.service";
+import { LoginService } from "../../../../service/login.service";
+
 @Component({
   selector: "translation-reply",
   templateUrl: "./translation-reply.component.html",
   styleUrls: ["./translation-reply.component.css"],
 })
-export class TranslationReplyComponent implements OnChanges {
+export class TranslationReplyComponent implements OnChanges, OnInit {
   @Input() scriptIndex: string;
   @Input() videoId: string;
   translations: Translation;
   loadingState = false;
   user: User;
+
+  displayMessage = "Sort by...";
+  sortOptions = ["Balance", "Company", "Last Name"];
+
+  changeMessage(selectedItem: string) {
+    this.displayMessage = "Sort by " + selectedItem;
+  }
 
   newSubply = {
     userId: "",
@@ -20,7 +31,25 @@ export class TranslationReplyComponent implements OnChanges {
     vodtes: [],
   };
 
-  constructor(private translationService: TranslationService) {}
+  constructor(
+    private translationService: TranslationService,
+    private userService: UserService,
+    private loginService: LoginService
+  ) {
+    this.user = {
+      _id: null,
+      name: null,
+      userId: null,
+      password: null,
+      nickname: null,
+      profilePhoto: null,
+    };
+  }
+
+  ngOnInit(): void {
+    let userId = this.loginService.getUserId();
+    this.getUser(userId);
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     if (!changes.scriptIndex.firstChange) {
@@ -44,6 +73,13 @@ export class TranslationReplyComponent implements OnChanges {
   returnSubpliesByIndex() {
     this.getTranslations();
     return this.translations.scripts[this.scriptIndex].subplies;
+  }
+
+  getUser(userId: String) {
+    this.userService.getUser(userId).subscribe(
+      (user) => (this.user = user),
+      (error) => console.log("[MypageService.getUser]", error)
+    );
   }
 
   setUser() {

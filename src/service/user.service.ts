@@ -11,6 +11,12 @@ import { catchError } from "rxjs/operators";
 export class UserService {
   constructor(private http: HttpClient) {}
 
+  getUser(userId: String): Observable<User> {
+    return this.http
+      .get<User>(`${config.server_url}/user/${userId}`)
+      .pipe(catchError(this.handleError));
+  }
+
   updateUser(userId: String, object: any): Observable<User> {
     //API 호출
     return this.http
