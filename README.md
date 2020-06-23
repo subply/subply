@@ -5,11 +5,11 @@
 
 ## 개발 환경
 
-개발환경 버전
-
-- Anuglar CLI: 9.1.7
-- Node: 10.15.1
-- OS: win32 x64
+Anuglar CLI: 9.1.7  </br>
+Node: 10.15.1 </br>
+OS: win32 x64
+ 
+</br>
 
 Angular 패키지 버전
 
