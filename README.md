@@ -39,7 +39,7 @@ subply 자막 번역, 번역 스크립트 파일 다운로드
 
 아래 명령어를 실행한한 후 http://localhost:4200/ 에 접속하세요.
 
-```
+```bash
 git clone https://github.com/subply/subply.git
 cd subply
 npm i # NodeJS dependency package install
