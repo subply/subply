@@ -1,7 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { NgForm } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
-import { LoginService } from "../../../../../service/login.service";
 import { UserService } from "../../../../../service/user.service";
 import { User } from "../../../../model/user.interface";
 
@@ -16,7 +14,6 @@ export class MyInformationComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private loginService: LoginService,
     private userService: UserService
   ) {}
 
@@ -26,7 +23,7 @@ export class MyInformationComponent implements OnInit {
   }
 
   getUser() {
-    this.loginService.getUser(this.userId).subscribe(
+    this.userService.getUser(this.userId).subscribe(
       (user) => {
         this.user = user;
       },

@@ -11,17 +11,13 @@ import { catchError } from "rxjs/operators";
 export class LoginService {
   constructor(private http: HttpClient) {}
 
-  getUser(userId: String): Observable<User> {
-    return this.http
-      .get<User>(`${config.server_url}/user/${userId}`)
-      .pipe(catchError(this.handleError));
-  }
-
   login(id, password): Observable<any> {
-    return this.http.post<any>(`${config.server_url}/user/login`, {
-      id,
-      password,
-    });
+    return this.http
+      .post<any>(`${config.server_url}/user/login`, {
+        id,
+        password,
+      })
+      .pipe(catchError(this.handleError));
   }
 
   setSessionStorage(id) {
