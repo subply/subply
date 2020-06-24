@@ -32,5 +32,13 @@
 
 button {
   width: 45px;
-  height: 30px;
+  height: 33px;
+  color: black;
+  background: white;
+  display: solid black 2px;
+}
+
+button:hover {
+  color: white;
+  background: black;
 }
