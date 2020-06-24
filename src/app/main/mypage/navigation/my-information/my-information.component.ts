@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
+import { NgForm } from "@angular/forms";
 import { UserService } from "../../../../../service/user.service";
 import { User } from "../../../../model/user.interface";
 
@@ -38,7 +39,13 @@ export class MyInformationComponent implements OnInit {
       (error) => console.log("[updateUser 에러]" + error);
   }
 
-  ngOnSubmit(obj: Object) {
-    this.updateUser(obj);
+  ngOnSubmit(userForm: NgForm) {
+    if (userForm.valid) {
+      this.updateUser(userForm.value);
+    }
+
+    if (userForm.invalid) {
+      return alert("입력한 값이 올바르지 않습니다.");
+    }
   }
 }

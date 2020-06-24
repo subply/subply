@@ -14,9 +14,8 @@ export class CanActivateUserService implements CanActivate {
   ): Observable<boolean> | boolean {
     if (this.loginService.isLoggedIn()) {
       return true;
-    } else {
-      this.router.navigate([`/login`]);
-      return false;
     }
+    this.router.navigate([`/login`]);
+    return false;
   }
 }
