@@ -15,7 +15,7 @@
           id="dropdownBasic2"
           ngbDropdownToggle
         >
-          Toggle dropup
+          섭플 정렬
         </button>
         <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
           <button ngbDropdownItem (click)="changeSort('dateAsc')">
@@ -43,7 +43,7 @@
     </div>
   </reply>
 
-  <translationBox *ngFor="let script of translations.scripts; let i = index">
+  <translationBox *ngFor="let script of translation.scripts; let i = index">
     <tran *ngIf="i == scriptIndex">
       <div *ngFor="let subply of script.subplies">
         [번역] <br />

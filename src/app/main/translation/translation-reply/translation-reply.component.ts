@@ -14,21 +14,14 @@ import { LoginService } from "../../../../service/login.service";
 export class TranslationReplyComponent implements OnChanges, OnInit {
   @Input() scriptIndex: string;
   @Input() videoId: string;
-  translations: Translation;
+  translation: Translation;
   loadingState = false;
   user: User;
-
-  displayMessage = "Sort by...";
-  sortOptions = ["Balance", "Company", "Last Name"];
-
-  changeMessage(selectedItem: string) {
-    this.displayMessage = "Sort by " + selectedItem;
-  }
 
   newSubply = {
     userId: "",
     translated: "",
-    vodtes: [],
+    votes: [],
   };
 
   constructor(
@@ -53,26 +46,35 @@ export class TranslationReplyComponent implements OnChanges, OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     if (!changes.scriptIndex.firstChange) {
-      this.getTranslations();
+      this.getTranslation();
     }
   }
 
-  getTranslations() {
+  getTranslation() {
     console.log("vodeoId:" + this.videoId);
-    this.translationService.getTranslations(this.videoId).subscribe(
-      (translations) => {
-        this.translations = translations;
+    this.translationService.getTranslation(this.videoId).subscribe(
+      (translation) => {
+        this.translation = translation;
         this.loadingState = true;
       },
       (error) => {
-        console.log("[getTranslations 에러]" + error);
+        console.log("[getTranslation 에러]" + error);
       }
     );
   }
 
+  updateTranslation(object: object) {
+    this.translationService
+      .updateTranslation(this.videoId, object)
+      .subscribe((translation) => (this.translation = translation)),
+      (error) => {
+        console.log("[updateTranslation 에러]" + error);
+      };
+  }
+
   returnSubpliesByIndex() {
-    this.getTranslations();
-    return this.translations.scripts[this.scriptIndex].subplies;
+    this.getTranslation();
+    return this.translation.scripts[this.scriptIndex].subplies;
   }
 
   getUser(userId: String) {
@@ -91,15 +93,15 @@ export class TranslationReplyComponent implements OnChanges, OnInit {
     const sentence = (<HTMLInputElement>document.getElementById("sentence"))
       .value;
     this.newSubply.translated = sentence;
-    this.addReply(sentence);
+    this.addReply();
     this.clearText();
   }
 
-  addReply(sentence: String) {
-    let translationArr = this.translations.scripts[this.scriptIndex]
-      .translations;
-    translationArr.push(this.newSubply);
-    this.translations.scripts[this.scriptIndex].translations = translationArr;
+  addReply() {
+    let subplies = this.translation.scripts[this.scriptIndex].subplies;
+    subplies.push(this.newSubply);
+    //this.translation.scripts[this.scriptIndex].subplies = subplies;
+    this.updateTranslation(subplies);
   }
 
   clearText() {
@@ -112,7 +114,7 @@ export class TranslationReplyComponent implements OnChanges, OnInit {
 
   changeSort(val: string) {
     if (val === "dateAsc") {
-      this.getTranslations();
+      this.getTranslation();
     } else if (val === "voteAsc") {
       this.sortByVote().reverse();
     } else if (val === "voteDesc") {
@@ -121,11 +123,11 @@ export class TranslationReplyComponent implements OnChanges, OnInit {
   }
 
   sortReverse() {
-    this.translations.scripts[0].subplies.reverse();
+    this.translation.scripts[0].subplies.reverse();
   }
 
   sortByVote() {
-    return this.translations.scripts[0].subplies.sort(function (a, b) {
+    return this.translation.scripts[0].subplies.sort(function (a, b) {
       return a.votes.length > b.votes.length
         ? -1
         : a.votes.length < b.votes.length

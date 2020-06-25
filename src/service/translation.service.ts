@@ -16,13 +16,13 @@ export class TranslationService {
     private errorHandler: ErrorHandlerService
   ) {}
 
-  getTranslations(videoId: String): Observable<Translation> {
+  getTranslation(videoId: String): Observable<Translation> {
     return this.http
       .get<Translation>(`${config.server_url}/translation/${videoId}`)
       .pipe(catchError(this.errorHandler.handleError));
   }
 
-  updateTranslation(videoId: String, object: Translation): Observable<any> {
+  updateTranslation(videoId: String, object: object): Observable<any> {
     return this.http
       .put(`${config.server_url}/translation/${videoId}`, object)
       .pipe(catchError(this.errorHandler.handleError));

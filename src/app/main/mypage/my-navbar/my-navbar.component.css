@@ -1,6 +1,5 @@
 .mynavbar {
   display: block;
-  /* justify-content: space-around; */
   border: 1px solid black;
   padding: 45px;
 }
@@ -18,7 +17,6 @@ a {
 }
 
 a:hover {
-  /* color: blue; */
   background: ghostwhite;
   opacity: 55%;
 }
