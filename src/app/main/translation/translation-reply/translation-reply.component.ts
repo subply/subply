@@ -84,14 +84,18 @@ export class TranslationReplyComponent implements OnChanges, OnInit {
     );
   }
 
-  setUser() {
-    this.newSubply.userId = sessionStorage.getItem("id");
-  }
-
   createReply() {
-    this.setUser();
     const sentence = (<HTMLInputElement>document.getElementById("sentence"))
       .value;
+
+    //로그인 검사
+    if (!sessionStorage.getItem("id")) {
+      return alert("로그인 후 이용가능 합니다");
+      //유효성 검사
+    } else if (sentence == "") {
+      return alert("글자를 입력해 주세요");
+    }
+    this.newSubply.userId = sessionStorage.getItem("id");
     this.newSubply.translated = sentence;
     this.addReply();
     this.clearText();
@@ -100,7 +104,6 @@ export class TranslationReplyComponent implements OnChanges, OnInit {
   addReply() {
     let subplies = this.translation.scripts[this.scriptIndex].subplies;
     subplies.push(this.newSubply);
-    //this.translation.scripts[this.scriptIndex].subplies = subplies;
     this.updateTranslation(subplies);
   }
 
@@ -113,7 +116,7 @@ export class TranslationReplyComponent implements OnChanges, OnInit {
   }
 
   changeSort(val: string) {
-    if (val === "dateAsc") {
+    if (val === "dateDesc") {
       this.getTranslation();
     } else if (val === "voteAsc") {
       this.sortByVote().reverse();
