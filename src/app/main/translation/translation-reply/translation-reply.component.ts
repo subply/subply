@@ -18,12 +18,6 @@ export class TranslationReplyComponent implements OnChanges, OnInit {
   loadingState = false;
   user: User;
 
-  newSubply = {
-    userId: "",
-    translated: "",
-    votes: [],
-  };
-
   constructor(
     private translationService: TranslationService,
     private userService: UserService,
@@ -55,7 +49,10 @@ export class TranslationReplyComponent implements OnChanges, OnInit {
     this.translationService.getTranslation(this.videoId).subscribe(
       (translation) => {
         this.translation = translation;
-        this.loadingState = true;
+        if (this.loadingState == false) {
+          this.loadingState = true;
+        }
+        // console.log(translation);
       },
       (error) => {
         console.log("[getTranslation 에러]" + error);
@@ -66,7 +63,10 @@ export class TranslationReplyComponent implements OnChanges, OnInit {
   updateTranslation(object: object) {
     this.translationService
       .updateTranslation(this.videoId, object)
-      .subscribe((translation) => (this.translation = translation)),
+      .subscribe((translation) => {
+        this.translation = translation;
+        console.log("야호 썌거:" + translation);
+      }),
       (error) => {
         console.log("[updateTranslation 에러]" + error);
       };
@@ -95,15 +95,21 @@ export class TranslationReplyComponent implements OnChanges, OnInit {
     } else if (sentence == "") {
       return alert("글자를 입력해 주세요");
     }
-    this.newSubply.userId = sessionStorage.getItem("id");
-    this.newSubply.translated = sentence;
-    this.addReply();
+
+    let newSubply = {
+      userId: sessionStorage.getItem("id"),
+      translated: sentence,
+      votes: [],
+      index: this.scriptIndex,
+    };
+
+    this.updateTranslation(newSubply);
     this.clearText();
   }
 
   addReply() {
     let subplies = this.translation.scripts[this.scriptIndex].subplies;
-    subplies.push(this.newSubply);
+    // subplies.push(this.newSubply);
     this.updateTranslation(subplies);
   }
 
