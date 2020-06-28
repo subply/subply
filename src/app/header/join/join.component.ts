@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ConfirmPasswordValidator } from './confirmPasswordValidator';
+import { LoginService } from '../../../service/login.service'
 @Component({
   selector: 'app-join',
   templateUrl: './join.component.html',
@@ -8,9 +9,13 @@ import { ConfirmPasswordValidator } from './confirmPasswordValidator';
 })
 export class JoinComponent implements OnInit {
 
-  constructor(private fb: FormBuilder) { }
+  @Input() isDuplicated: boolean
+  constructor(private fb: FormBuilder, private loginService: LoginService) {
+    this.isDuplicated = true;
+  }
 
   ngOnInit(): void { }
+  
   idPattern = "[-_!A-za-z0-9]{4,10}$";
   passwordPattern = "[-_!A-za-z0-9]{4,10}$";
 
@@ -20,11 +25,30 @@ export class JoinComponent implements OnInit {
     password: ['', [Validators.required, Validators.pattern(this.passwordPattern)]],
     password_check: ['', Validators.required],
     name: ['', Validators.required],
-    nickname: ['', Validators.required]
+    nickname: ['', Validators.required],
+    checkId : ['Check Duplicate']
   }, {validators : ConfirmPasswordValidator.MatchPassword});
 
+  checkDuplicateID(){
+    const id = this.joinForm.value.id;
+    this.loginService.getUser(id).subscribe(
+      (user) => {
+        if(!user) {
+          this.isDuplicated = false;
+          return this.joinFormControl['checkId'].setErrors(null);
+        }
+        return this.joinFormControl['checkId'].setErrors({"invalid" : true});
+      }
+    );
+  }
+  
+  get joinFormControl() {
+    return this.joinForm.controls;
+  }
+
   onSubmit(){
+    
     const {id, password, password_check, name, nickname} = this.joinForm.value;
-    console.log(password, password_check);
+    console.log(id, password);
   }
 }
