@@ -17,7 +17,6 @@ export class ScriptsService {
     this.http.post(`${config.server_url}/translation/${this.videoId}`, scripts).subscribe((ret) => {
       console.log("post method", ret);
     });
-
   }
 
   getXMLScript(videoId : string): Observable<any> {

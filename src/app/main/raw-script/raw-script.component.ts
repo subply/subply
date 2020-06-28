@@ -30,11 +30,9 @@ export class RawScriptComponent implements OnInit {
   loadScripts() {
     if (this.videoId) {
       this.scriptService.getXMLScript(this.videoId).subscribe((xmlScripts) => {
-        if (!xmlScripts) {
-          this.loading = false;
-          return;
-        }
+        if (!xmlScripts) { this.loading = false; return; }
         this.parseScriptsFromXML(xmlScripts);
+        
         this.scriptService.checkScriptIsExist().subscribe((ret) => {
           if(ret) return;
           this.scriptService.initScripts(this.scripts);
@@ -43,7 +41,6 @@ export class RawScriptComponent implements OnInit {
         this.scriptExist = true;
         this.loading = false;
       });
-  
     }
   }
 
