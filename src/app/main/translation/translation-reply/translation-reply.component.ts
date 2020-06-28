@@ -49,6 +49,8 @@ export class TranslationReplyComponent implements OnChanges {
     this.newSubply.userId = userId;
   }
 
+
+  //TODO : 로그인 안해도 섭플 추가됨
   createReply() {
     this.setUser();
     const sentence = (<HTMLInputElement>document.getElementById("sentence")).value;

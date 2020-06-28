@@ -12,8 +12,6 @@ export class TranslationComponent implements OnInit {
   player: any;
   scriptIndex: Number;
 
-  //rawScript 컴포넌트에서 값 받아 scriptIndex에 저장
-
   ngOnInit() {
     this.videoId = this.route.snapshot.paramMap.get("id");
     this.initPlayer();
