@@ -45,31 +45,15 @@ export class TranslationReplyComponent implements OnChanges, OnInit {
   }
 
   getTranslation() {
-    console.log("vodeoId:" + this.videoId);
     this.translationService.getTranslation(this.videoId).subscribe(
       (translation) => {
         this.translation = translation;
-        if (this.loadingState == false) {
-          this.loadingState = true;
-        }
-        // console.log(translation);
+        this.loadingState = true;
       },
       (error) => {
         console.log("[getTranslation 에러]" + error);
       }
     );
-  }
-
-  updateTranslation(object: object) {
-    this.translationService
-      .updateTranslation(this.videoId, object)
-      .subscribe((translation) => {
-        this.translation = translation;
-        console.log("야호 썌거:" + translation);
-      }),
-      (error) => {
-        console.log("[updateTranslation 에러]" + error);
-      };
   }
 
   returnSubpliesByIndex() {
@@ -109,7 +93,6 @@ export class TranslationReplyComponent implements OnChanges, OnInit {
 
   addReply() {
     let subplies = this.translation.scripts[this.scriptIndex].subplies;
-    // subplies.push(this.newSubply);
     this.updateTranslation(subplies);
   }
 
@@ -143,5 +126,32 @@ export class TranslationReplyComponent implements OnChanges, OnInit {
         ? 1
         : 0;
     });
+  }
+
+  updateTranslation(object: object) {
+    this.translationService
+      .updateTranslation(this.videoId, object)
+      .subscribe((translation) => {
+        this.translation = translation;
+      }),
+      (error) => {
+        console.log("[updateTranslation 에러]" + error);
+      };
+  }
+
+  deleteSubply(_id: string) {
+    let object = {
+      scriptIndex: this.scriptIndex,
+      _id: _id,
+    };
+
+    this.translationService
+      .deleteSubply(this.videoId, object)
+      .subscribe((translation) => {
+        this.translation = translation;
+      }),
+      (error) => {
+        console.log("[updateTranslation 에러]" + error);
+      };
   }
 }

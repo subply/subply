@@ -27,4 +27,13 @@ export class TranslationService {
       .put(`${config.server_url}/translation/${videoId}`, object)
       .pipe(catchError(this.errorHandler.handleError));
   }
+
+  deleteSubply(videoId: String, object: object): Observable<Translation> {
+    return this.http
+      .patch<Translation>(
+        `${config.server_url}/translation/subply/${videoId}`,
+        object
+      )
+      .pipe(catchError(this.errorHandler.handleError));
+  }
 }
