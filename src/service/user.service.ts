@@ -1,43 +1,35 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { Observable, throwError } from "rxjs";
-import { catchError } from "rxjs/operators";
-import { Translation } from "../app/model/translation.interface";
 import config from "../config/config.json";
+import { Observable, throwError } from "rxjs";
+import { User } from "../app/model/user.interface";
+import { catchError } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root",
 })
-export class TranslationService {
+export class UserService {
   constructor(private http: HttpClient) {}
 
-  getTranslations(videoId: String): Observable<Translation> {
+  updateUser(userId: String, object: any): Observable<User> {
+    //API 호출
     return this.http
-      .get<Translation>(`${config.server_url}/translation/${videoId}`)
-      .pipe(catchError(this.handleError));
-  }
-
-  updateTranslation(videoId: String, object: Translation): Observable<any> {    
-    return this.http
-      .put(`${config.server_url}/translation/${videoId}`, object)
+      .patch<User>(`${config.server_url}/user/${userId}`, object)
       .pipe(catchError(this.handleError));
   }
 
   private handleError(errorRes: HttpErrorResponse) {
     let message = "";
-
-    //클라이언트 에러
     if (errorRes.error instanceof ErrorEvent) {
       console.error(`Client side error: ${errorRes.error.message}`);
       message = errorRes.message;
     } else {
-      //백엔드 에러
-      console.error(`Server side error: ${errorRes.status}`);
+      console.error(`Sever side error: ${errorRes.status}`);
       message = errorRes.message;
     }
 
     return throwError({
-      title: "Someting wrong. try again later.",
+      title: "HTTP 에러 발생",
       message,
     });
   }
