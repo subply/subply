@@ -17,6 +17,10 @@ import { RawScriptComponent } from "./main/raw-script/raw-script.component";
 import { TranslationReplyComponent } from "./main/translation/translation-reply/translation-reply.component";
 import { LoginComponent } from "./header/login/login.component";
 import { JoinComponent } from "./header/join/join.component";
+import { MyInformationComponent } from "./main/mypage/navigation/my-information/my-information.component";
+import { MyVoteComponent } from "./main/mypage/navigation/my-vote/my-vote.component";
+import { MySubplyComponent } from "./main/mypage/navigation/my-subply/my-subply.component";
+import { MyNavbarComponent } from "./main/mypage/my-navbar/my-navbar.component";
 
 @NgModule({
   declarations: [
@@ -32,6 +36,10 @@ import { JoinComponent } from "./header/join/join.component";
     TranslationReplyComponent,
     LoginComponent,
     JoinComponent,
+    MyInformationComponent,
+    MyVoteComponent,
+    MySubplyComponent,
+    MyNavbarComponent,
   ],
   imports: [
     BrowserModule,
