@@ -56,11 +56,6 @@ export class TranslationReplyComponent implements OnChanges, OnInit {
     );
   }
 
-  returnSubpliesByIndex() {
-    this.getTranslation();
-    return this.translation.scripts[this.scriptIndex].subplies;
-  }
-
   getUser(userId: String) {
     this.userService.getUser(userId).subscribe(
       (user) => (this.user = user),
