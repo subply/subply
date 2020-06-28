@@ -35,8 +35,12 @@ export class MyInformationComponent implements OnInit {
   updateUser(obj: any) {
     this.userService.updateUser(this.userId, obj).subscribe((user) => {
       this.user = user;
+      return alert("정보가 수정되었습니다");
     }),
-      (error) => console.log("[updateUser 에러]" + error);
+      (error) => {
+        console.log("[updateUser 에러]" + error);
+        return alert("서버가 불안정해 정보가 수정되지 않았습니다.");
+      };
   }
 
   ngOnSubmit(userForm: NgForm) {
