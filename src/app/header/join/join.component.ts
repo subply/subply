@@ -1,7 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ConfirmPasswordValidator } from './confirmPasswordValidator';
-import { UserService } from '../../../service/user.service'
+import { UserService } from '../../../service/user.service';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-join',
   templateUrl: './join.component.html',
@@ -10,7 +12,9 @@ import { UserService } from '../../../service/user.service'
 export class JoinComponent implements OnInit {
 
   @Input() isDuplicated: boolean
-  constructor(private fb: FormBuilder, private userService: UserService) {
+  constructor(private fb: FormBuilder, 
+    private userService: UserService,
+    private router: Router) {
     this.isDuplicated = true;
   }
 
@@ -19,15 +23,15 @@ export class JoinComponent implements OnInit {
   idPattern = "[-_!A-za-z0-9]{4,10}$";
   passwordPattern = "[-_!A-za-z0-9]{4,10}$";
   imageSrc: any = "https://img.icons8.com/ios-filled/100/000000/name.png";
+
   joinForm = this.fb.group({
-    profileImage: [''],
+    profilePhoto: [''],
     id: ['', [Validators.required, Validators.pattern(this.idPattern)]],
     password: ['', [Validators.required, Validators.pattern(this.passwordPattern)]],
     password_check: ['', Validators.required],
     name: ['', Validators.required],
     nickname: ['', Validators.required],
     checkId : ['Check Duplicate'],
-    profilePhoto: ['']
   }, {validators : ConfirmPasswordValidator.MatchPassword});
 
   
@@ -65,6 +69,11 @@ export class JoinComponent implements OnInit {
 
   onSubmit(){    
     const {id, password, profilePhoto, password_check, name, nickname} = this.joinForm.value;
-    console.log(profilePhoto);
+    const newUser = {id, password, profilePhoto, password_check, name, nickname};
+    this.userService.addUser(newUser).subscribe((ret)=>{
+      if(!ret) {alert('회원가입 실패'); return false;}
+      alert('회원가입 성공!');
+      this.router.navigate(['/']);
+    });
   }
 }
