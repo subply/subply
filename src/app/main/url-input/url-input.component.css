@@ -1,23 +1,41 @@
-.root{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
+.root {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
 }
 
-.container{
-    text-align: center;
-    width: 100%;
+.container {
+  text-align: center;
+  width: 100%;
 }
 
-.input_url{
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    height: 30px;
+.contentDiv {
+  padding-bottom: 250px;
 }
 
-.input_url input{
-    width: 80%;
-    margin-right: 10px;
+.input_url {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 30px;
+}
+
+.input_url input {
+  width: 75%;
+  padding: 15px 0px;
+  margin-right: 10px;
+}
+
+button {
+  width: 45px;
+  height: 33px;
+  color: black;
+  background: white;
+  display: solid black 2px;
+}
+
+button:hover {
+  color: white;
+  background: black;
 }

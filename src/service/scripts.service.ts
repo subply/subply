@@ -13,10 +13,7 @@ export class ScriptsService {
   constructor(private http: HttpClient) { }
 
   initScripts(scripts: Array<object>): any {
-    console.log(scripts);
-    this.http.post(`${config.server_url}/translation/${this.videoId}`, scripts).subscribe((ret) => {
-      console.log("post method", ret);
-    });
+    return this.http.post(`${config.server_url}/translation/${this.videoId}`, scripts);
   }
 
   getXMLScript(videoId : string): Observable<any> {

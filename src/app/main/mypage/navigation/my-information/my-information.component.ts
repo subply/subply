@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { NgForm } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
-import { LoginService } from "../../../../../service/login.service";
+import { NgForm } from "@angular/forms";
 import { UserService } from "../../../../../service/user.service";
 import { User } from "../../../../model/user.interface";
 
@@ -16,7 +15,6 @@ export class MyInformationComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private loginService: LoginService,
     private userService: UserService
   ) {}
 
@@ -26,7 +24,7 @@ export class MyInformationComponent implements OnInit {
   }
 
   getUser() {
-    this.loginService.getUser(this.userId).subscribe(
+    this.userService.getUser(this.userId).subscribe(
       (user) => {
         this.user = user;
       },
@@ -37,11 +35,21 @@ export class MyInformationComponent implements OnInit {
   updateUser(obj: any) {
     this.userService.updateUser(this.userId, obj).subscribe((user) => {
       this.user = user;
+      return alert("정보가 수정되었습니다");
     }),
-      (error) => console.log("[updateUser 에러]" + error);
+      (error) => {
+        console.log("[updateUser 에러]" + error);
+        return alert("서버가 불안정해 정보가 수정되지 않았습니다.");
+      };
   }
 
-  ngOnSubmit(obj: Object) {
-    this.updateUser(obj);
+  ngOnSubmit(userForm: NgForm) {
+    if (userForm.valid) {
+      this.updateUser(userForm.value);
+    }
+
+    if (userForm.invalid) {
+      return alert("입력한 값이 올바르지 않습니다.");
+    }
   }
 }

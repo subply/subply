@@ -35,7 +35,9 @@ export class RawScriptComponent implements OnInit {
         
         this.scriptService.checkScriptIsExist().subscribe((ret) => {
           if(ret) return;
-          this.scriptService.initScripts(this.scripts);
+          this.scriptService.initScripts(this.scripts).subscribe((ret)=>{
+            if(!ret) {alert('초기화 실패'); return false;}
+          });
         });
   
         this.scriptExist = true;
@@ -63,7 +65,6 @@ export class RawScriptComponent implements OnInit {
       }
     });
   }
-
 
   handleclick(index) {
     this.scriptEvent.emit({

@@ -6,11 +6,9 @@ export class ConfirmPasswordValidator {
     let password = control.get('password').value;
     let confirmPassword = control.get('password_check').value;
 
-    if (password != confirmPassword) {
-      control.get('password_check').setErrors({ password_check: true });
-    }
-    else {
+    if (password === confirmPassword) {
       return null;
     }
+    control.get('password_check').setErrors({ password_check: true });
   }
 }
