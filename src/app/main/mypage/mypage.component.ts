@@ -15,16 +15,7 @@ export class MypageComponent implements OnInit {
   constructor(
     private userService: UserService,
     private loginService: LoginService
-  ) {
-    this.user = {
-      _id: null,
-      name: null,
-      userId: null,
-      password: null,
-      nickname: null,
-      profilePhoto: null,
-    };
-  }
+  ) {}
 
   ngOnInit() {
     this.userId = this.loginService.getUserId();

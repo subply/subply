@@ -22,19 +22,10 @@ export class TranslationReplyComponent implements OnChanges, OnInit {
     private translationService: TranslationService,
     private userService: UserService,
     private loginService: LoginService
-  ) {
-    this.user = {
-      _id: null,
-      name: null,
-      userId: null,
-      password: null,
-      nickname: null,
-      profilePhoto: null,
-    };
-  }
+  ) {}
 
   ngOnInit(): void {
-    let userId = this.loginService.getUserId();
+    const userId = this.loginService.getUserId();
     this.getUser(userId);
   }
 
