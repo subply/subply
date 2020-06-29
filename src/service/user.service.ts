@@ -28,4 +28,8 @@ export class UserService {
       .patch<User>(`${config.server_url}/user/${userId}`, object)
       .pipe(catchError(this.errorHandler.handleError));
   }
+
+  addUser(userInfo: object) {
+    return this.http.post(`${config.server_url}/user`, userInfo);
+  }
 }
