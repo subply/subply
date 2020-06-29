@@ -11,32 +11,18 @@ import { LoginService } from "../../../../service/login.service";
   templateUrl: "./translation-reply.component.html",
   styleUrls: ["./translation-reply.component.css"],
 })
-<<<<<<< HEAD
 export class TranslationReplyComponent implements OnChanges {
   @Input() scriptIndex: number;
-=======
-export class TranslationReplyComponent implements OnChanges, OnInit {
-  @Input() scriptIndex: string;
->>>>>>> 6ec81a4cb8c872d811fc1ad3602b1bf991a9fcbd
   @Input() videoId: string;
   translation: Translation;
   loadingState = false;
   user: User;
 
-<<<<<<< HEAD
-  newSubply = {
-    userId: "",
-    translated: "",
-    votes: [],
-    index: -1,
-  };
-=======
   constructor(
     private translationService: TranslationService,
     private userService: UserService,
     private loginService: LoginService
   ) {}
->>>>>>> 6ec81a4cb8c872d811fc1ad3602b1bf991a9fcbd
 
   ngOnInit(): void {
     const userId = this.loginService.getUserId();
@@ -61,40 +47,14 @@ export class TranslationReplyComponent implements OnChanges, OnInit {
     );
   }
 
-<<<<<<< HEAD
-  setUser() {
-    const userId = sessionStorage.getItem("id");
-    if(!userId) {
-      alert('로그인 해 주세요');
-      return false;
-    }
-    this.newSubply.userId = userId;
-=======
   getUser(userId: String) {
     this.userService.getUser(userId).subscribe(
       (user) => (this.user = user),
       (error) => console.log("[MypageService.getUser]", error)
     );
->>>>>>> 6ec81a4cb8c872d811fc1ad3602b1bf991a9fcbd
   }
 
-
-  //TODO : 로그인 안해도 섭플 추가됨
   createReply() {
-<<<<<<< HEAD
-    this.setUser();
-    const sentence = (<HTMLInputElement>document.getElementById("sentence")).value;
-    if(!sentence) { alert("입력 안 됨"); return false; }
-    this.newSubply.translated = sentence;
-    this.newSubply.index = this.scriptIndex;
-    this.addReply(this.newSubply);
-    this.clearText();
-  }
-
-  addReply(reply: any) {
-    this.translationService.updateTranslation(this.videoId, reply)
-    .subscribe((ret)=>console.log(ret));
-=======
     const sentence = (<HTMLInputElement>document.getElementById("sentence"))
       .value;
 
@@ -120,7 +80,6 @@ export class TranslationReplyComponent implements OnChanges, OnInit {
   addReply() {
     let subplies = this.translation.scripts[this.scriptIndex].subplies;
     this.updateTranslation(subplies);
->>>>>>> 6ec81a4cb8c872d811fc1ad3602b1bf991a9fcbd
   }
 
   clearText() {

@@ -11,26 +11,14 @@ import { Translation } from "../app/model/translation.interface";
   providedIn: "root",
 })
 export class TranslationService {
-<<<<<<< HEAD
-=======
   constructor(
     private http: HttpClient,
     private errorHandler: ErrorHandlerService
   ) {}
->>>>>>> 6ec81a4cb8c872d811fc1ad3602b1bf991a9fcbd
 
   getTranslation(videoId: String): Observable<Translation> {
     return this.http
       .get<Translation>(`${config.server_url}/translation/${videoId}`)
-<<<<<<< HEAD
-      .pipe(catchError(this.handleError));
-  }
-
-  updateTranslation(videoId: String, object: Translation): Observable<any> {    
-    return this.http
-      .put(`${config.server_url}/translation/${videoId}`, object)
-      .pipe(catchError(this.handleError));
-=======
       .pipe(catchError(this.errorHandler.handleError));
   }
 
@@ -38,7 +26,6 @@ export class TranslationService {
     return this.http
       .put(`${config.server_url}/translation/${videoId}`, object)
       .pipe(catchError(this.errorHandler.handleError));
->>>>>>> 6ec81a4cb8c872d811fc1ad3602b1bf991a9fcbd
   }
 
   deleteSubply(videoId: String, object: object): Observable<Translation> {
