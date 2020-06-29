@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ConfirmPasswordValidator } from './confirmPasswordValidator';
-import { LoginService } from '../../../service/login.service'
+import { UserService } from '../../../service/user.service'
 @Component({
   selector: 'app-join',
   templateUrl: './join.component.html',
@@ -10,7 +10,7 @@ import { LoginService } from '../../../service/login.service'
 export class JoinComponent implements OnInit {
 
   @Input() isDuplicated: boolean
-  constructor(private fb: FormBuilder, private loginService: LoginService) {
+  constructor(private fb: FormBuilder, private userService: UserService) {
     this.isDuplicated = true;
   }
 
@@ -31,7 +31,7 @@ export class JoinComponent implements OnInit {
 
   checkDuplicateID(){
     const id = this.joinForm.value.id;
-    this.loginService.getUser(id).subscribe(
+    this.userService.getUser(id).subscribe(
       (user) => {
         if(!user) {
           this.isDuplicated = false;
