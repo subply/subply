@@ -50,7 +50,9 @@
         <tran>{{ subply.translated }}</tran> <br />
         <br />
         <replymeta>
-          닉네임: {{ subply.userId }} 👍 {{ subply.votes.length }}
+          닉네임: {{ subply.userId }}
+          <button (click)="vote(subply._id)">👍</button>
+          {{ subply.votes.length }}
         </replymeta>
         <span *ngIf="user && user.userId == subply.userId">
           <button (click)="deleteSubply(subply._id)">삭제</button>
