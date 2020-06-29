@@ -65,8 +65,6 @@ export class RawScriptComponent implements OnInit {
   }
 
   handleclick(i) {
-    console.log(i);
-
     this.scriptEvent.emit({
       scriptIndex: i,
     });

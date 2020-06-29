@@ -5,26 +5,56 @@
 </ng-template>
 
 <ng-template #success>
+  <div class="row">
+    <div class="col"></div>
+
+    <div class="col text-right">
+      <div ngbDropdown class="d-inline-block">
+        <button
+          class="btn btn-outline-primary"
+          id="dropdownBasic2"
+          ngbDropdownToggle
+        >
+          섭플 정렬
+        </button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+          <button ngbDropdownItem (click)="changeSort('dateDesc')">
+            최근 순
+          </button>
+          <button ngbDropdownItem (click)="changeSort('voteDesc')">
+            좋아요 높은 순
+          </button>
+          <button ngbDropdownItem (click)="changeSort('voteAsc')">
+            좋아요 낮은 순
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <reply>
     <div>
       <input type="text" id="sentence" /> &nbsp;
       <span><button (click)="createReply()">✔️</button> </span>
       <br />
-      <replymeta>
-        닉네임: OOO
-      </replymeta>
+      <span *ngIf="user">
+        <replymeta> 아이디 : {{ user.nickname }} </replymeta>
+      </span>
     </div>
   </reply>
 
-  <translationBox *ngFor="let script of translations.scripts; let i = index">
+  <translationBox *ngFor="let script of translation.scripts; let i = index">
     <tran *ngIf="i == scriptIndex">
       <div *ngFor="let subply of script.subplies">
         [번역] <br />
         <tran>{{ subply.translated }}</tran> <br />
         <br />
         <replymeta>
-          닉네임: {{ subply.userId }} 👍: {{ subply.votes.length }}
+          닉네임: {{ subply.userId }} 👍 {{ subply.votes.length }}
         </replymeta>
+        <span *ngIf="user && user.userId == subply.userId">
+          <button (click)="deleteSubply(subply._id)">삭제</button>
+        </span>
       </div>
     </tran>
   </translationBox>

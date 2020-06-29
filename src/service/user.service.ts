@@ -5,34 +5,27 @@ import { catchError } from "rxjs/operators";
 
 import config from "../config/config.json";
 import { ErrorHandlerService } from "../service/error-handler.service";
+import { User } from "../app/model/user.interface";
 
 @Injectable({
   providedIn: "root",
 })
-export class LoginService {
+export class UserService {
   constructor(
     private http: HttpClient,
     private errorHandler: ErrorHandlerService
   ) {}
 
-  login(id, password): Observable<any> {
+  getUser(userId: String): Observable<User> {
     return this.http
-      .post<any>(`${config.server_url}/user/login`, {
-        id,
-        password,
-      })
+      .get<User>(`${config.server_url}/user/${userId}`)
       .pipe(catchError(this.errorHandler.handleError));
   }
 
-  setSessionStorage(id) {
-    sessionStorage.setItem("id", id);
-  }
-
-  isLoggedIn(): boolean {
-    return sessionStorage.getItem("id") ? true : false;
-  }
-
-  getUserId() {
-    return sessionStorage.getItem("id");
+  updateUser(userId: String, object: any): Observable<User> {
+    //API 호출
+    return this.http
+      .patch<User>(`${config.server_url}/user/${userId}`, object)
+      .pipe(catchError(this.errorHandler.handleError));
   }
 }

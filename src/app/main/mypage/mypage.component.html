@@ -1,19 +1,8 @@
-<div class="userInfo">
-  <div id="imageDiv">
-    프로필 이미지
+<div class="row">
+  <div class="left col-md-3">
+    <my-navbar [userId]="userId"> </my-navbar>
   </div>
-
-  <div class="infoDiv">
-    <!-- <ul> -->
-      <li>닉네임: {{ user.nickname }}</li>
-      <li>아이디: {{ user.userId }}</li>
-      <li>이름: {{ user.name }}</li>
-      <li>비밀번호: {{ user.password }}</li>
-      <li>이미지: {{ user.profilePhoto }}</li>
-
-    <!-- </ul> -->
-   
+  <div class="left col-md-9">
+    <router-outlet></router-outlet>
   </div>
-
-  
 </div>
