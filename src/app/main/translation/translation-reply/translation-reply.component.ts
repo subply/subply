@@ -11,8 +11,8 @@ import { LoginService } from "../../../../service/login.service";
   templateUrl: "./translation-reply.component.html",
   styleUrls: ["./translation-reply.component.css"],
 })
-export class TranslationReplyComponent implements OnChanges, OnInit {
-  @Input() scriptIndex: string;
+export class TranslationReplyComponent implements OnChanges {
+  @Input() scriptIndex: number;
   @Input() videoId: string;
   translation: Translation;
   loadingState = false;

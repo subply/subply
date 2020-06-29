@@ -1,5 +1,5 @@
 <h2>JOIN</h2>
-<form #joinForm = "ngForm" (ngSubmit)="onSubmit(joinForm)" novalidate>
+<form [formGroup] = "joinForm" (ngSubmit)="onSubmit()" novalidate>
     <div>
         <label for="profileImage">Profile Image</label>
         <img src="https://loremflickr.com/320/240" />
@@ -7,55 +7,33 @@
     <div>
         <label for="id">ID</label>
         <input 
-            name="id"
-            type="text" 
-            placeholder="id" 
-            required 
-            pattern="[-_!A-za-z0-9]{4,10}$"
-            ngModel 
-            #id="ngModel">
+            type="text"
+            formControlName="id">
     </div>
     <div>
         <label for="password">PassWord</label>
         <input 
-            name="password" 
-            type="password" 
-            placeholder="password" 
-            required 
-            ngModel 
-            pattern="[-_!A-za-z0-9]{4,10}$"
-            #password="ngModel">
+            type="password"
+            formControlName="password">
     </div>
     <div>
         <label for="password_check">Check PassWord</label>
         <input 
-            name="password_check" 
             type="password" 
-            placeholder="type your password again" 
-            required 
-            ngModel 
-            pattern="[-_!A-za-z0-9]{4,10}$"
-            #password_check="ngModel">
+            formControlName="password_check">
     </div>
+ 
     <div>
         <label for="name">Name</label>
         <input 
-            name="name" 
-            type="text" 
-            placeholder="name" 
-            required 
-            ngModel 
-            #name="ngModel">
+            type="text"
+            formControlName="name">
     </div>
     <div>
         <label for="nickname">Nickname</label>
         <input 
-            name="nickname" 
-            type="text" 
-            placeholder="Nickname" 
-            required 
-            ngModel 
-            #nickname="ngModel">
+            type="text"
+            formControlName="nickname">
     </div>
 
     <button [disabled]="joinForm.invalid">JOIN</button>    
