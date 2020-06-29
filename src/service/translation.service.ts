@@ -1,19 +1,28 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { Observable, throwError } from "rxjs";
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
 import { catchError } from "rxjs/operators";
-import { Translation } from "../app/model/translation.interface";
+
 import config from "../config/config.json";
+import { ErrorHandlerService } from "../service/error-handler.service";
+import { Translation } from "../app/model/translation.interface";
+
 @Injectable({
   providedIn: "root",
 })
 export class TranslationService {
+<<<<<<< HEAD
+=======
+  constructor(
+    private http: HttpClient,
+    private errorHandler: ErrorHandlerService
+  ) {}
+>>>>>>> 6ec81a4cb8c872d811fc1ad3602b1bf991a9fcbd
 
-  constructor(private http: HttpClient) {}
-
-  getTranslations(videoId: String): Observable<Translation> {
+  getTranslation(videoId: String): Observable<Translation> {
     return this.http
       .get<Translation>(`${config.server_url}/translation/${videoId}`)
+<<<<<<< HEAD
       .pipe(catchError(this.handleError));
   }
 
@@ -21,24 +30,23 @@ export class TranslationService {
     return this.http
       .put(`${config.server_url}/translation/${videoId}`, object)
       .pipe(catchError(this.handleError));
+=======
+      .pipe(catchError(this.errorHandler.handleError));
   }
 
-  private handleError(errorRes: HttpErrorResponse) {
-    let message = "";
+  updateTranslation(videoId: String, object: object): Observable<any> {
+    return this.http
+      .put(`${config.server_url}/translation/${videoId}`, object)
+      .pipe(catchError(this.errorHandler.handleError));
+>>>>>>> 6ec81a4cb8c872d811fc1ad3602b1bf991a9fcbd
+  }
 
-    //클라이언트 에러
-    if (errorRes.error instanceof ErrorEvent) {
-      console.error(`Client side error: ${errorRes.error.message}`);
-      message = errorRes.message;
-    } else {
-      //백엔드 에러
-      console.error(`Server side error: ${errorRes.status}`);
-      message = errorRes.message;
-    }
-
-    return throwError({
-      title: "Someting wrong. try again later.",
-      message,
-    });
+  deleteSubply(videoId: String, object: object): Observable<Translation> {
+    return this.http
+      .patch<Translation>(
+        `${config.server_url}/translation/subply/${videoId}`,
+        object
+      )
+      .pipe(catchError(this.errorHandler.handleError));
   }
 }

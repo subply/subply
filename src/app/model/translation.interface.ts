@@ -6,6 +6,7 @@ export interface Translation {
       raw: string;
       subplies: [
         {
+          _id: String;
           userId: String;
           translated: String;
           votes: [];

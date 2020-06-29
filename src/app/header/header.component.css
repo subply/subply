@@ -1,30 +1,56 @@
 .header {
+  width: 160vh;
+  padding: 30px 5px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+}
+
+.title a {
+  font-size: 50px;
+  font-weight: 700;
+  text-decoration: none;
+  color: black;
+}
+
+.title a:hover {
+  text-decoration: none;
+  color: black;
+  opacity: 70%;
+}
+
+.title__btn {
   width: 100%;
+  display: flex;
+  justify-content: flex-end;
 }
 
-.title{
-    display: flex;
-    align-items: center;
+.title__btn--login,
+.title__btn--join,
+.title__btn--logout {
+  height: 30px;
+  background: white;
 }
 
-.title__btn{
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
+.title__btn--join {
+  margin-left: 5px;
 }
 
-.title__btn--login{
-    height: 20px;
+.title__btn--login:hover,
+.title__btn--join:hover,
+.title__btn--logout:hover {
+  background: black;
+  color: white;
 }
 
-.title__btn--logout{
-    height: 20px;
-}
-
-.navbar{
-    display: flex;
-    justify-content: space-around;
-    border : 1px solid black;
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  border: 1px solid black;
 }
 
 .navbar li {
@@ -43,6 +69,6 @@
   cursor: pointer;
 }
 
-.invisible{
+.invisible {
   display: none;
 }

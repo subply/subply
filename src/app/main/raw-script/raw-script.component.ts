@@ -64,8 +64,12 @@ export class RawScriptComponent implements OnInit {
     });
   }
 
+<<<<<<< HEAD
 
   handleclick(index) {
+=======
+  handleclick(i) {
+>>>>>>> 6ec81a4cb8c872d811fc1ad3602b1bf991a9fcbd
     this.scriptEvent.emit({
       scriptIndex: index,
     });

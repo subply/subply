@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { MypageService } from "../../../service/mypage.service";
+import { UserService } from "../../../service/user.service";
 import { User } from "../../model/user.interface";
+import { LoginService } from "src/service/login.service";
 
 @Component({
   selector: "app-mypage",
@@ -10,25 +10,21 @@ import { User } from "../../model/user.interface";
 })
 export class MypageComponent implements OnInit {
   user: User;
+  userId: String;
 
-  constructor(private http: HttpClient, private mypageService: MypageService) {
-    this.user = {
-      _id: null,
-      name: null,
-      userId: null,
-      password: null,
-      nickname: null,
-      profilePhoto: null,
-    };
-    this.getUser();
+  constructor(
+    private userService: UserService,
+    private loginService: LoginService
+  ) {}
+
+  ngOnInit() {
+    this.userId = this.loginService.getUserId();
   }
 
-  ngOnInit() {}
-
   getUser() {
-    this.mypageService.getUser().subscribe(
+    this.userService.getUser(this.userId).subscribe(
       (user) => (this.user = user),
-      (error) => console.log("[MypageService.getUser]", error)
+      (error) => console.log("[getUser() error]", error)
     );
   }
 }

@@ -1,0 +1,22 @@
+.mynavbar {
+  display: block;
+  border: 1px solid black;
+  padding: 45px;
+}
+
+li {
+  list-style: none;
+  line-height: 45px;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+  text-decoration: solid;
+  font-weight: 600;
+}
+
+a:hover {
+  background: ghostwhite;
+  opacity: 55%;
+}

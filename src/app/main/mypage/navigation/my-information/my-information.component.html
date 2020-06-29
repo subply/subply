@@ -1,0 +1,97 @@
+<div *ngIf="user" id="content_box">
+  <h1>내 정보 수정하기</h1>
+  <hr />
+  <form #userForm="ngForm" (ngSubmit)="ngOnSubmit(userForm)" novalidate>
+    <div class="form-group row">
+      <label class="col-sm-1 col-form-label">Photo</label>
+      <div class="col-sm-5">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="photo"
+          name="profilePhoto"
+          #profilePhoto="ngModel"
+          [ngModel]="user.profilePhoto"
+        />
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-sm-1 col-form-label">Id</label>
+      <div class="col-sm-5">
+        <input
+          type="text"
+          class="form-control"
+          name="userId"
+          #userId="ngModel"
+          placeholder="Put your Id"
+          pattern="[A-za-z0-9]{4,10}"
+          required
+          [ngModel]="user.userId"
+        />
+      </div>
+      <em *ngIf="userId.errors?.pattern">
+        4이상 10이하 자의 영문 혹은 숫자를 입력해주세요
+      </em>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-sm-1 col-form-label">Password</label>
+      <div class="col-sm-5">
+        <input
+          type="text"
+          class="form-control"
+          name="password"
+          #password="ngModel"
+          placeholder="Put your Password"
+          pattern="[a-zA-Z0-9]{4,10}"
+          required
+          [ngModel]="user.password"
+        />
+      </div>
+      <em *ngIf="password.errors?.pattern">
+        4이상 10이하 자의 영문 혹은 숫자를 입력해주세요
+      </em>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-sm-1 col-form-label">Name</label>
+      <div class="col-sm-5">
+        <input
+          type="text"
+          class="form-control"
+          name="name"
+          #name="ngModel"
+          placeholder="Put your Name"
+          pattern="[a-zA-Z]{4,10}"
+          required
+          [ngModel]="user.name"
+        />
+      </div>
+      <em *ngIf="name.errors?.pattern">
+        4이상 10이하 자의 영문 혹은 숫자를 입력해주세요
+      </em>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-sm-1 col-form-label">Nickname</label>
+      <div class="col-sm-5">
+        <input
+          type="text"
+          class="form-control"
+          name="nickname"
+          #nickname="ngModel"
+          placeholder="Put your Nickname"
+          required
+          [ngModel]="user.nickname"
+        />
+      </div>
+      <em *ngIf="nickname.errors?.required">
+        닉네임을 입력해주세요
+      </em>
+    </div>
+
+    <br />
+    <button class="btn btn-primary" type="submit">수정</button>
+  </form>
+</div>
