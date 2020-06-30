@@ -12,12 +12,10 @@ import { ScriptsService } from "../../../service/scripts.service";
 export class RawScriptComponent implements OnInit {
   scripts: Array<object> = [];
   @Input() videoId: string;
-  URL: string;
   scriptExist: boolean = false;
   loading: boolean = true;
 
   constructor(
-    private http: HttpClient,
     private scriptService: ScriptsService
   ) {}
 
@@ -31,13 +29,17 @@ export class RawScriptComponent implements OnInit {
 
   loadScripts() {
     if (this.videoId) {
-      this.URL = `http://video.google.com/timedtext?v=${this.videoId}&lang=en`;
-      this.scriptService.getXMLFromURL(this.URL).subscribe((response) => {
-        if (!response) {
-          this.loading = false;
-          return;
-        }
-        this.parseScriptsFromXML(response);
+      this.scriptService.getXMLScript(this.videoId).subscribe((xmlScripts) => {
+        if (!xmlScripts) { this.loading = false; return; }
+        this.parseScriptsFromXML(xmlScripts);
+        
+        this.scriptService.checkScriptIsExist().subscribe((ret) => {
+          if(ret) return;
+          this.scriptService.initScripts(this.scripts).subscribe((ret)=>{
+            if(!ret) {alert('초기화 실패'); return false;}
+          });
+        });
+  
         this.scriptExist = true;
         this.loading = false;
       });
@@ -64,9 +66,9 @@ export class RawScriptComponent implements OnInit {
     });
   }
 
-  handleclick(i) {
+  handleclick(index) {
     this.scriptEvent.emit({
-      scriptIndex: i,
+      scriptIndex: index,
     });
   }
 }
