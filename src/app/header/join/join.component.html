@@ -3,7 +3,7 @@
     <div>
         <label for="profilePhoto">Profile Image</label>
         <img *ngIf="imageSrc" [src]="imageSrc" class="profilePhoto">
-        <input type="file" accept="image/*"
+        <input type="file" accept="image/*" enctype="multipart/form-data"
         (change)="onFileChange(fileInput.files)" #fileInput>
     </div>
     <div>

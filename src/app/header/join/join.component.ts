@@ -68,15 +68,13 @@ export class JoinComponent implements OnInit {
 
   onSubmit(files: FileList){    
     const {id, password_check, name, nickname} = this.joinForm.value;
-    const profilePhoto = new Blob([files[0]], {type: 'text/plain'});
+    const newUser = new FormData();
 
-    const newUser = {
-      id,
-      password_check,
-      name,
-      nickname,
-      profilePhoto
-    }
+    newUser.append('profilePhoto', files[0]);
+    newUser.append('id', id);
+    newUser.append('password', password_check);
+    newUser.append('name', name);
+    newUser.append('nickname', nickname);
 
     this.userService.addUser(newUser).subscribe((ret)=>{
       if(!ret) {alert('회원가입 실패'); return false;}
