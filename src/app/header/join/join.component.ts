@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, Form } from '@angular/forms';
 import { ConfirmPasswordValidator } from './confirmPasswordValidator';
 import { UserService } from '../../../service/user.service';
 import { Router } from '@angular/router';
@@ -37,8 +37,7 @@ export class JoinComponent implements OnInit {
   
   checkDuplicateID(){
     const id = this.joinForm.value.id;
-    this.userService.getUser(id).subscribe(
-      (user) => {
+    this.userService.getUser(id).subscribe((user) => {
         if(!user) {
           this.isDuplicated = false;
           return this.joinFormControl['checkId'].setErrors(null);
@@ -67,9 +66,18 @@ export class JoinComponent implements OnInit {
   }
 
 
-  onSubmit(){    
-    const {id, password, profilePhoto, password_check, name, nickname} = this.joinForm.value;
-    const newUser = {id, password, profilePhoto, password_check, name, nickname};
+  onSubmit(files: FileList){    
+    const {id, password_check, name, nickname} = this.joinForm.value;
+    const profilePhoto = new Blob([files[0]], {type: 'text/plain'});
+
+    const newUser = {
+      id,
+      password_check,
+      name,
+      nickname,
+      profilePhoto
+    }
+
     this.userService.addUser(newUser).subscribe((ret)=>{
       if(!ret) {alert('회원가입 실패'); return false;}
       alert('회원가입 성공!');

@@ -1,5 +1,5 @@
 <h2>JOIN</h2>
-<form [formGroup] = "joinForm" (ngSubmit)="onSubmit()" novalidate>
+<form [formGroup] = "joinForm" (ngSubmit)="onSubmit(fileInput.files)" novalidate>
     <div>
         <label for="profilePhoto">Profile Image</label>
         <img *ngIf="imageSrc" [src]="imageSrc" class="profilePhoto">

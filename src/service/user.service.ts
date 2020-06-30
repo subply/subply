@@ -30,6 +30,7 @@ export class UserService {
   }
 
   addUser(userInfo: object): Observable<any> {
+    console.log(userInfo);
     return this.http.post(`${config.server_url}/user`, userInfo, {responseType: 'text'})
     .pipe(catchError(this.errorHandler.handleError));
   }
