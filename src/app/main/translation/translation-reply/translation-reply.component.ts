@@ -59,7 +59,7 @@ export class TranslationReplyComponent implements OnChanges {
       .value;
 
     //로그인 검사
-    if (!sessionStorage.getItem("id")) {
+    if (!this.loginService.isLoggedIn()) {
       return alert("로그인 후 이용가능 합니다");
       //유효성 검사
     } else if (sentence == "") {
@@ -139,5 +139,32 @@ export class TranslationReplyComponent implements OnChanges {
       (error) => {
         console.log("[updateTranslation 에러]" + error);
       };
+  }
+
+  addVoteToSubply(object: Object) {
+    this.translationService
+      .addVoteToSubply(this.videoId, object)
+      .subscribe((translation) => {
+        this.translation = translation;
+      }),
+      (error) => {
+        console.log("[updateTranslation 에러]" + error);
+      };
+  }
+
+  vote(subplyId: string) {
+    console.log("vote");
+    //로그인 검사
+    if (!this.loginService.isLoggedIn()) {
+      return alert("로그인 후 이용가능 합니다");
+    }
+
+    const object = {
+      scriptIndex: this.scriptIndex,
+      subplyId: subplyId,
+      userId: this.user.userId,
+    };
+
+    this.addVoteToSubply(object);
   }
 }

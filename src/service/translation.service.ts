@@ -36,4 +36,13 @@ export class TranslationService {
       )
       .pipe(catchError(this.errorHandler.handleError));
   }
+
+  addVoteToSubply(videoId: String, object: Object): Observable<Translation> {
+    return this.http
+      .put<Translation>(
+        `${config.server_url}/translation/vote/${videoId}`,
+        object
+      )
+      .pipe(catchError(this.errorHandler.handleError));
+  }
 }
