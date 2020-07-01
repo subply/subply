@@ -281,4 +281,12 @@ export class TranslationReplyComponent implements OnChanges {
 
     // console.log(this.translation.scripts[0].subplies[1].translated);
   }
+
+  createSubplyTranslation(content: string) {
+    let data = new Blob([content]);
+    let arrayOfBlob = new Array<Blob>();
+    arrayOfBlob.push(data);
+    let appScript = new File(arrayOfBlob, "subply.srt", { type: "text/srt" }); //MIME- 파일종류/파일포맷
+    console.log(appScript);
+  }
 }
