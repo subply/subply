@@ -1,10 +1,14 @@
 import { Component, Input, SimpleChanges } from "@angular/core";
-import { OnInit, OnChanges } from "@angular/core";
+import { OnChanges } from "@angular/core";
 import { TranslationService } from "../../../../service/translation.service";
 import { Translation } from "../../../model/translation.interface";
 import { User } from "../../../model/user.interface";
 import { UserService } from "../../../../service/user.service";
 import { LoginService } from "../../../../service/login.service";
+
+import { Script } from "../../../model/script.interface";
+import { ScriptsService } from "../../../../service/scripts.service";
+import { parseString } from "xml2js";
 
 @Component({
   selector: "translation-reply",
@@ -18,8 +22,11 @@ export class TranslationReplyComponent implements OnChanges {
   loadingState = false;
   user: User;
 
+  // scripts: Array<Script> = [];
+
   constructor(
     private translationService: TranslationService,
+    private scriptService: ScriptsService,
     private userService: UserService,
     private loginService: LoginService
   ) {}
@@ -166,5 +173,112 @@ export class TranslationReplyComponent implements OnChanges {
     };
 
     this.addVoteToSubply(object);
+  }
+
+  clickSubplyDownload() {
+    this.getScript();
+  }
+
+  getScript() {
+    if (this.videoId) {
+      this.scriptService.getXMLScript(this.videoId).subscribe((xmlScripts) => {
+        let scripts = [];
+
+        if (!xmlScripts) {
+          return alert("다운로드 에러 발생");
+        }
+
+        parseString(xmlScripts, { explicitArray: false }, (error, result) => {
+          if (error) {
+            throw new Error("parseString error: " + error);
+          }
+
+          const returned_scripts = result.transcript.text;
+          returned_scripts.map((script) => {
+            const start = parseFloat(script.$.start);
+            const end = start + parseFloat(script.$.dur);
+
+            let scr = {
+              script: script._,
+              startTime: start,
+              endTime: end,
+            };
+
+            scripts.push(scr);
+          });
+        });
+
+        this.scriptService.checkScriptIsExist().subscribe(
+          (ret) => {
+            if (ret) {
+              // console.log("가져온 스크립트: " + scripts);
+              return;
+            }
+            this.scriptService.initScripts(scripts).subscribe((ret) => {
+              if (!ret) {
+                alert("초기화 실패");
+                return false;
+              }
+            });
+          },
+          (error) => {
+            console.log("[checkScriptIsExist 에러]" + error);
+          }
+        );
+
+        this.makeSubplyDownloadContents(scripts);
+      });
+    }
+  }
+
+  sortSubplyWithVoteByIndex(index: number) {
+    let copySubplies = Array.from(this.translation.scripts[index].subplies);
+    return copySubplies.sort(function (a, b) {
+      return a.votes.length > b.votes.length
+        ? -1
+        : a.votes.length < b.votes.length
+        ? 1
+        : 0;
+    });
+  }
+
+  //덧셈연산자->포맷화
+  //Time data parsing
+  makeSubplyDownloadContents(scripts: Array<Script>) {
+    let content = "";
+    let index = 1;
+    let isPos = true;
+
+    scripts.map((script) => {
+      let con = "";
+      let scrs = this.translation.scripts[index - 1];
+
+      if (scrs) {
+        let subplies = this.sortSubplyWithVoteByIndex(index - 1);
+        let translated = subplies[0].translated;
+
+        if (translated) {
+          con =
+            index +
+            "\n" +
+            script.startTime +
+            " --> " +
+            script.endTime +
+            "\n" +
+            translated +
+            "\n\n";
+          content += con;
+          index++;
+        } else {
+          isPos = false;
+        }
+      } else {
+        isPos = false;
+      }
+    });
+    console.log(content);
+    if (!isPos) return alert("섭플이 완료되지 않은 영상입니다.");
+
+    // console.log(this.translation.scripts[0].subplies[1].translated);
   }
 }

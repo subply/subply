@@ -2,22 +2,20 @@ import { Component, OnInit, Input } from "@angular/core";
 import { Output, EventEmitter } from "@angular/core";
 import { parseString } from "xml2js";
 import { ScriptsService } from "../../../service/scripts.service";
-import { ErrorHandlerService } from "../../../service/error-handler.service";
+import { Script } from "../../model/script.interface";
+
 @Component({
   selector: "app-raw-script",
   templateUrl: "./raw-script.component.html",
   styleUrls: ["./raw-script.component.css"],
 })
 export class RawScriptComponent implements OnInit {
-  scripts: Array<object> = [];
+  scripts: Array<Script> = [];
   @Input() videoId: string;
   scriptExist: boolean = false;
   loading: boolean = true;
 
-  constructor(
-    private scriptService: ScriptsService,
-    private errHandlerService: ErrorHandlerService
-  ) {}
+  constructor(private scriptService: ScriptsService) {}
 
   @Output() scriptEvent = new EventEmitter();
 
@@ -68,11 +66,13 @@ export class RawScriptComponent implements OnInit {
         const start = parseFloat(script.$.start);
         const end = start + parseFloat(script.$.dur);
 
-        this.scripts.push({
+        let scr = {
           script: script._,
           startTime: start,
           endTime: end,
-        });
+        };
+
+        this.scripts.push(scr);
       });
     });
   }
