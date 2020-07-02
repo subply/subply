@@ -76,8 +76,8 @@ export class JoinComponent implements OnInit {
     newUser.append('name', name);
     newUser.append('nickname', nickname);
 
-    this.userService.addUser(newUser).subscribe((ret)=>{
-      if(!ret) {alert('회원가입 실패'); return false;}
+    this.userService.addUser(newUser).subscribe((user)=>{
+      if(!user) {alert('회원가입 실패'); return false;}
       alert('회원가입 성공!');
       this.router.navigate(['/']);
     });
