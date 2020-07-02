@@ -209,13 +209,12 @@ export class TranslationReplyComponent implements OnChanges {
         });
 
         this.scriptService.checkScriptIsExist().subscribe(
-          (ret) => {
-            if (ret) {
-              // console.log("가져온 스크립트: " + scripts);
+          (result) => {
+            if (result) {
               return;
             }
-            this.scriptService.initScripts(scripts).subscribe((ret) => {
-              if (!ret) {
+            this.scriptService.initScripts(scripts).subscribe((result) => {
+              if (!result) {
                 alert("초기화 실패");
                 return false;
               }
@@ -242,8 +241,6 @@ export class TranslationReplyComponent implements OnChanges {
     });
   }
 
-  //덧셈연산자->포맷화
-  //Time data parsing
   makeSubplyDownloadContents(scripts: Array<Script>) {
     let content = "";
     let index = 1;
@@ -255,20 +252,24 @@ export class TranslationReplyComponent implements OnChanges {
 
       if (scrs) {
         let subplies = this.sortSubplyWithVoteByIndex(index - 1);
-        let translated = subplies[0].translated;
 
-        if (translated) {
-          con =
-            index +
-            "\n" +
-            script.startTime +
-            " --> " +
-            script.endTime +
-            "\n" +
-            translated +
-            "\n\n";
-          content += con;
-          index++;
+        if (subplies[0]) {
+          let translated = subplies[0].translated;
+          if (translated || translated !== undefined) {
+            con =
+              index +
+              "\n" +
+              script.startTime +
+              " --> " +
+              script.endTime +
+              "\n" +
+              translated +
+              "\n\n";
+            content += con;
+            index++;
+          } else {
+            isPos = false;
+          }
         } else {
           isPos = false;
         }
@@ -276,17 +277,27 @@ export class TranslationReplyComponent implements OnChanges {
         isPos = false;
       }
     });
-    console.log(content);
     if (!isPos) return alert("섭플이 완료되지 않은 영상입니다.");
 
-    // console.log(this.translation.scripts[0].subplies[1].translated);
+    this.downloadSubply(content);
   }
 
-  createSubplyTranslation(content: string) {
-    let data = new Blob([content]);
-    let arrayOfBlob = new Array<Blob>();
-    arrayOfBlob.push(data);
-    let appScript = new File(arrayOfBlob, "subply.srt", { type: "text/srt" }); //MIME- 파일종류/파일포맷
-    console.log(appScript);
+  downloadSubply(data: string) {
+    const blob = new Blob([data], { type: "text/srt" });
+    this.downloadBlob("subply.srt", blob);
+  }
+
+  public downloadBlob(fileName: string, blob: Blob): void {
+    if (window.navigator.msSaveOrOpenBlob) {
+      window.navigator.msSaveBlob(blob, fileName);
+    } else {
+      const anchor = window.document.createElement("a");
+      anchor.href = window.URL.createObjectURL(blob);
+      anchor.download = fileName;
+      document.body.appendChild(anchor);
+      anchor.click();
+      document.body.removeChild(anchor);
+      window.URL.revokeObjectURL(anchor.href);
+    }
   }
 }
