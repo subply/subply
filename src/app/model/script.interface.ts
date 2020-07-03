@@ -1,5 +1,5 @@
 export interface Script {
   script: any;
-  startTime: Number;
-  endTime: Number;
+  startTime: String;
+  endTime: String;
 }

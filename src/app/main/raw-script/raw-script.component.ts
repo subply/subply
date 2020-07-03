@@ -63,8 +63,14 @@ export class RawScriptComponent implements OnInit {
 
       const returned_scripts = result.transcript.text;
       returned_scripts.map((script) => {
-        const start = parseFloat(script.$.start);
-        const end = start + parseFloat(script.$.dur);
+        const _start = parseFloat(script.$.start);
+        const _end = _start + parseFloat(script.$.dur);
+
+        const start = new Date(script.$.start * 1000)
+          .toISOString()
+          .substr(11, 12);
+
+        const end = new Date(_end * 1000).toISOString().substr(11, 12);
 
         let scr = {
           script: script._,
