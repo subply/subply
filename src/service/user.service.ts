@@ -28,4 +28,10 @@ export class UserService {
       .patch<User>(`${config.server_url}/user/${userId}`, object)
       .pipe(catchError(this.errorHandler.handleError));
   }
+
+  addUser(profilePhoto: object): Observable<any> {
+    console.log(profilePhoto);
+    return this.http.post(`${config.server_url}/user`, profilePhoto, {responseType: 'text'})
+    .pipe(catchError(this.errorHandler.handleError));
+  }
 }

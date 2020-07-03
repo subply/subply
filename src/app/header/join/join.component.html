@@ -1,15 +1,25 @@
 <h2>JOIN</h2>
-<form [formGroup] = "joinForm" (ngSubmit)="onSubmit()" novalidate>
+<form [formGroup] = "joinForm" (ngSubmit)="onSubmit(fileInput.files)" novalidate>
     <div>
-        <label for="profileImage">Profile Image</label>
-        <img src="https://loremflickr.com/320/240" />
+        <label for="profilePhoto">Profile Image</label>
+        <img *ngIf="imageSrc" [src]="imageSrc" class="profilePhoto">
+        <input type="file" accept="image/*" enctype="multipart/form-data"
+        (change)="onFileChange(fileInput.files)" #fileInput>
     </div>
     <div>
         <label for="id">ID</label>
         <input 
             type="text"
             formControlName="id">
+        <input 
+            value="Check Duplicate"
+            type="button" 
+            formControlName="checkId" 
+            (click)="checkDuplicateID()"
+        >
     </div>
+    <p *ngIf="joinFormControl.checkId.untouched || joinFormControl.checkId.invalid">check ID please!</p>
+
     <div>
         <label for="password">PassWord</label>
         <input 
@@ -36,5 +46,5 @@
             formControlName="nickname">
     </div>
 
-    <button [disabled]="joinForm.invalid">JOIN</button>    
+    <button [disabled]="joinForm.invalid || isDuplicated">JOIN</button>    
 </form>
