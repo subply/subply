@@ -188,36 +188,7 @@ export class TranslationReplyComponent implements OnChanges {
           return alert("다운로드 에러 발생");
         }
 
-        parseString(xmlScripts, { explicitArray: false }, (error, result) => {
-          if (error) {
-            throw new Error("parseString error: " + error);
-          }
-
-          const returned_scripts = result.transcript.text;
-          returned_scripts.map((script) => {
-            const _start = parseFloat(script.$.start);
-            const _end = _start + parseFloat(script.$.dur);
-
-            const start = new Date(script.$.start * 1000)
-              .toISOString()
-              .substr(11, 12)
-              .replace(".", ",");
-
-            const end = new Date(_end * 1000)
-              .toISOString()
-              .substr(11, 12)
-              .replace(".", ",");
-
-            let scr = {
-              script: script._,
-              startTime: start,
-              endTime: end,
-            };
-
-            scripts.push(scr);
-          });
-        });
-
+        scripts = this.parsingXML(xmlScripts, scripts);
         this.scriptService.checkScriptIsExist().subscribe(
           (result) => {
             if (result) {
@@ -238,6 +209,40 @@ export class TranslationReplyComponent implements OnChanges {
         this.makeSubplyDownloadContents(scripts);
       });
     }
+  }
+
+  parsingXML(xmlScripts: any, scripts: Array<any>) {
+    parseString(xmlScripts, { explicitArray: false }, (error, result) => {
+      if (error) {
+        throw new Error("parseString error: " + error);
+      }
+
+      const returned_scripts = result.transcript.text;
+      returned_scripts.map((script) => {
+        const _start = parseFloat(script.$.start);
+        const _end = _start + parseFloat(script.$.dur);
+
+        const start = new Date(script.$.start * 1000)
+          .toISOString()
+          .substr(11, 12)
+          .replace(".", ",");
+
+        const end = new Date(_end * 1000)
+          .toISOString()
+          .substr(11, 12)
+          .replace(".", ",");
+
+        let scr = {
+          script: script._,
+          startTime: start,
+          endTime: end,
+        };
+
+        scripts.push(scr);
+      });
+    });
+
+    return scripts;
   }
 
   sortSubplyWithVoteByIndex(index: number) {
@@ -279,11 +284,9 @@ export class TranslationReplyComponent implements OnChanges {
         isPos = false;
       }
     });
-    // if (!isPos) return alert("섭플이 완료되지 않은 영상입니다.");
+    if (!isPos) return alert("섭플이 완료되지 않은 영상입니다.");
 
-    // this.downloadSubply(content);
-
-    console.log(content);
+    this.downloadSubply(content);
   }
 
   downloadSubply(data: string) {
