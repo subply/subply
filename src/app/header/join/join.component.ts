@@ -10,8 +10,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./join.component.css']
 })
 export class JoinComponent implements OnInit {
-
   @Input() isDuplicated: boolean
+  
   constructor(private fb: FormBuilder, 
     private userService: UserService,
     private router: Router) {
@@ -30,6 +30,7 @@ export class JoinComponent implements OnInit {
     password: ['', [Validators.required, Validators.pattern(this.passwordPattern)]],
     password_check: ['', Validators.required],
     name: ['', Validators.required],
+    
     nickname: ['', Validators.required],
     checkId : ['Check Duplicate'],
   }, {validators : ConfirmPasswordValidator.MatchPassword});
