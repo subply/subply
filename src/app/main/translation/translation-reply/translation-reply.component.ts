@@ -266,15 +266,7 @@ export class TranslationReplyComponent implements OnChanges {
         if (subplies[0]) {
           let translated = subplies[0].translated;
           if (translated || translated !== undefined) {
-            con =
-              index +
-              "\n" +
-              script.startTime +
-              " --> " +
-              script.endTime +
-              "\n" +
-              translated +
-              "\n\n";
+            con = `${index}\n${script.startTime} --> ${script.endTime}\n${translated}\n\n`;
             content += con;
             index++;
           } else {
@@ -289,7 +281,9 @@ export class TranslationReplyComponent implements OnChanges {
     });
     // if (!isPos) return alert("섭플이 완료되지 않은 영상입니다.");
 
-    this.downloadSubply(content);
+    // this.downloadSubply(content);
+
+    console.log(content);
   }
 
   downloadSubply(data: string) {
