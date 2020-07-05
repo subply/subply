@@ -1,13 +1,7 @@
 <div class="row">
   <div class="left col-md-7">
-    <youtube-player
-      videoId="{{ videoId }}"
-      (ready)="onPlayerReady($event)"
-    ></youtube-player>
-    <app-raw-script
-      [videoId]="videoId"
-      (scriptEvent)="changeScriptIndex($event)"
-    ></app-raw-script>
+    <div id="player"></div>
+    <app-raw-script [videoId]="videoId" (scriptEvent)="changeScriptIndex($event)"></app-raw-script>
   </div>
   <div class="right col-md-5">
     <translation-reply [videoId]="videoId" [scriptIndex]="scriptIndex">
