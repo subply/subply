@@ -10,8 +10,9 @@ export class TranslationComponent implements OnInit {
   constructor(private route: ActivatedRoute) {}
   
   videoId: string;
-  player: any;
+  player : YT.Player;
   scriptIndex: Number;
+  timer: any;
 
   ngOnInit() {
     this.videoId = this.route.snapshot.paramMap.get("id");
@@ -25,30 +26,33 @@ export class TranslationComponent implements OnInit {
     const firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-    window.onYouTubeIframeAPIReady = () => this.startVideo();
+    window.onYouTubeIframeAPIReady = () => this.player = this.createPlayer();
   }
 
-  startVideo(){
-    this.player = new YT.Player('player', {
+  createPlayer(){
+    return new YT.Player('player', {
       videoId: this.videoId,
       playerVars: {
-        rel: 0,
-        autoplay : 0
-      },
-      events: {
-        'onReady': this.onPlayerReady, //로딩할때 이벤트 실행
-        'onStateChange': this.onPlayerStateChange //플레이어 상태 변화시 이벤트실행
+        rel: 1,
+        autoplay : 0,
+        controls : 0,
+        showinfo : 0,
+        fs:0,
+        iv_load_policy : 3,
+        cc_load_policy : 1,
+        modestbranding : 1,
       }
     });
   }
-  onPlayerReady(event) {
-    // event.target.playVideo();
-  }
-  onPlayerStateChange(event) {
-    if (event.data == YT.PlayerState.PLAYING) {
-    }
-  }
+
   changeScriptIndex(scriptInfo) {
+    const {startTime, duration} = scriptInfo.scriptInfo;
+
+    if(this.timer) clearTimeout(this.timer);
+
     this.scriptIndex = scriptInfo.scriptIndex;
+    this.player.seekTo(startTime, true);
+    this.player.playVideo();
+    this.timer = setTimeout(()=> this.player.pauseVideo(), duration * 1000);
   }
 }
