@@ -72,13 +72,13 @@ export class RawScriptComponent implements OnInit {
 
         const end = new Date(_end * 1000).toISOString().substr(11, 12);
 
-        let scr = {
+        let _script = {
           script: script._,
           startTime: start,
           endTime: end,
         };
 
-        this.scripts.push(scr);
+        this.scripts.push(_script);
       });
     });
   }

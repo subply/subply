@@ -189,23 +189,6 @@ export class TranslationReplyComponent implements OnChanges {
         }
 
         scripts = this.parsingXML(xmlScripts, scripts);
-        this.scriptService.checkScriptIsExist().subscribe(
-          (result) => {
-            if (result) {
-              return;
-            }
-            this.scriptService.initScripts(scripts).subscribe((result) => {
-              if (!result) {
-                alert("초기화 실패");
-                return false;
-              }
-            });
-          },
-          (error) => {
-            console.log("[checkScriptIsExist 에러]" + error);
-          }
-        );
-
         this.makeSubplyDownloadContents(scripts);
       });
     }
@@ -232,20 +215,20 @@ export class TranslationReplyComponent implements OnChanges {
           .substr(11, 12)
           .replace(".", ",");
 
-        let scr = {
+        let _script: Script = {
           script: script._,
           startTime: start,
           endTime: end,
         };
 
-        scripts.push(scr);
+        scripts.push(_script);
       });
     });
 
     return scripts;
   }
 
-  sortSubplyWithVoteByIndex(index: number) {
+  sortSubplyByScriptIndex(index: number) {
     let copySubplies = Array.from(this.translation.scripts[index].subplies);
     return copySubplies.sort(function (a, b) {
       return a.votes.length > b.votes.length
@@ -259,39 +242,39 @@ export class TranslationReplyComponent implements OnChanges {
   makeSubplyDownloadContents(scripts: Array<Script>) {
     let content = "";
     let index = 1;
-    let isPos = true;
+    let finishedSubply = true;
 
     scripts.map((script) => {
-      let con = "";
+      let _content = "";
       let scrs = this.translation.scripts[index - 1];
 
       if (scrs) {
-        let subplies = this.sortSubplyWithVoteByIndex(index - 1);
+        let subplies = this.sortSubplyByScriptIndex(index - 1);
 
         if (subplies[0]) {
           let translated = subplies[0].translated;
           if (translated || translated !== undefined) {
-            con = `${index}\n${script.startTime} --> ${script.endTime}\n${translated}\n\n`;
-            content += con;
+            _content = `${index}\n${script.startTime} --> ${script.endTime}\n${translated}\n\n`;
+            content += _content;
             index++;
           } else {
-            isPos = false;
+            finishedSubply = false;
           }
         } else {
-          isPos = false;
+          finishedSubply = false;
         }
       } else {
-        isPos = false;
+        finishedSubply = false;
       }
     });
-    if (!isPos) return alert("섭플이 완료되지 않은 영상입니다.");
+    if (!finishedSubply) return alert("섭플이 완료되지 않은 영상입니다.");
 
     this.downloadSubply(content);
   }
 
   downloadSubply(data: string) {
     const blob = new Blob([data], { type: "text/srt" });
-    this.downloadBlob("subply.srt", blob);
+    this.downloadBlob(this.videoId + ".srt", blob);
   }
 
   public downloadBlob(fileName: string, blob: Blob): void {
