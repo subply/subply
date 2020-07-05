@@ -36,10 +36,6 @@ export class TranslationComponent implements OnInit {
         rel: 1,
         autoplay : 0,
         controls : 0,
-        showinfo : 0,
-        fs:0,
-        iv_load_policy : 3,
-        cc_load_policy : 1,
         modestbranding : 1,
       }
     });
