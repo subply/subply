@@ -7,7 +7,8 @@
     <div *ngIf="scriptExist === true; then exist; else notExist"></div>
     <ng-template #exist>
         <ul>    
-            <li *ngFor="let script of scripts index as i;"(click)="handleclick(i)">
+            <li *ngFor="let script of scripts index as i;" 
+            (click)="handleclick(i)">
                 <h3>{{ script.script }}</h3>
                 <p>{{ script.startTime }} - {{script.endTime}}</p>
             </li>

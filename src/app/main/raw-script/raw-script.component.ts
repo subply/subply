@@ -60,6 +60,7 @@ export class RawScriptComponent implements OnInit {
             script: script._,
             startTime: start,
             endTime: end,
+            duration: parseFloat(script.$.dur)
           });
         });
       }
@@ -69,6 +70,7 @@ export class RawScriptComponent implements OnInit {
   handleclick(index) {
     this.scriptEvent.emit({
       scriptIndex: index,
+      scriptInfo : this.scripts[index]
     });
   }
 }
