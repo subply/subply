@@ -22,8 +22,6 @@ export class TranslationReplyComponent implements OnChanges {
   loadingState = false;
   user: User;
 
-  // scripts: Array<Script> = [];
-
   constructor(
     private translationService: TranslationService,
     private scriptService: ScriptsService,
@@ -160,7 +158,6 @@ export class TranslationReplyComponent implements OnChanges {
   }
 
   vote(subplyId: string) {
-    console.log("vote");
     //로그인 검사
     if (!this.loginService.isLoggedIn()) {
       return alert("로그인 후 이용가능 합니다");
@@ -239,34 +236,26 @@ export class TranslationReplyComponent implements OnChanges {
     });
   }
 
-  makeSubplyDownloadContents(scripts: Array<Script>) {
+  makeSubplyDownloadContents(youtubeScripts: Array<Script>) {
     let content = "";
-    let index = 1;
     let finishedSubply = true;
 
-    scripts.map((script) => {
+    youtubeScripts.every((_youtubScript, index) => {
+      console.log(index);
       let _content = "";
-      let scrs = this.translation.scripts[index - 1];
+      let subplies = this.sortSubplyByScriptIndex(index);
 
-      if (scrs) {
-        let subplies = this.sortSubplyByScriptIndex(index - 1);
-
-        if (subplies[0]) {
-          let translated = subplies[0].translated;
-          if (translated || translated !== undefined) {
-            _content = `${index}\n${script.startTime} --> ${script.endTime}\n${translated}\n\n`;
-            content += _content;
-            index++;
-          } else {
-            finishedSubply = false;
-          }
-        } else {
-          finishedSubply = false;
-        }
-      } else {
+      if (!subplies[0] || subplies[0].translated === undefined) {
         finishedSubply = false;
+        console.log("섭플이 없으" + index);
+        return false;
       }
+      let translated = subplies[0].translated;
+      _content = `${index}\n${_youtubScript.startTime} --> ${_youtubScript.endTime}\n${translated}\n\n`;
+      content += _content;
+      return true;
     });
+
     if (!finishedSubply) return alert("섭플이 완료되지 않은 영상입니다.");
 
     this.downloadSubply(content);
