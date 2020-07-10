@@ -8,9 +8,11 @@ import { ActivatedRoute } from "@angular/router";
 })
 export class TranslationComponent implements OnInit {
   constructor(private route: ActivatedRoute) {}
+  
   videoId: string;
-  player: any;
+  player : YT.Player;
   scriptIndex: Number;
+  timer: any;
 
   ngOnInit() {
     this.videoId = this.route.snapshot.paramMap.get("id");
@@ -18,16 +20,35 @@ export class TranslationComponent implements OnInit {
   }
 
   initPlayer() {
-    const tag = document.createElement("script");
+    const tag = document.createElement('script');
     tag.src = "https://www.youtube.com/iframe_api";
-    document.body.appendChild(tag);
+
+    const firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    window.onYouTubeIframeAPIReady = () => this.player = this.createPlayer();
   }
 
-  onPlayerReady(event) {
-    event.target.playVideo();
+  createPlayer(){
+    return new YT.Player('player', {
+      videoId: this.videoId,
+      playerVars: {
+        rel: 1,
+        autoplay : 0,
+        controls : 0,
+        modestbranding : 1,
+      }
+    });
   }
 
   changeScriptIndex(scriptInfo) {
+    const {startTime, duration} = scriptInfo.scriptInfo;
+
+    if(this.timer) clearTimeout(this.timer);
+
     this.scriptIndex = scriptInfo.scriptIndex;
+    this.player.seekTo(startTime, true);
+    this.player.playVideo();
+    this.timer = setTimeout(()=> this.player.pauseVideo(), duration * 1000);
   }
 }
