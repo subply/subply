@@ -100,7 +100,7 @@ export class RawScriptComponent implements OnInit {
 
   downPressed(){
     if(this.index === undefined) return;
-    this.index == this.scripts.length ? this.index : this.index += 1;
+    this.index == this.scripts.length - 1 ? this.index : this.index += 1;
     this.handleclick(this.index);
   }
 
