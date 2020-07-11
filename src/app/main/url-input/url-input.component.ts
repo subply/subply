@@ -11,10 +11,10 @@ export class UrlInputComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
-    this.enterClicked();
+    this.enterPressed();
   }
 
-  enterClicked(){
+  enterPressed(){
     window.onkeydown = (event)=>{
       if(event.keyCode === 13){
         return this.goButtonClicked();
