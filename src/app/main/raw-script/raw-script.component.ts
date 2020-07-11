@@ -68,9 +68,25 @@ export class RawScriptComponent implements OnInit {
   }
 
   handleclick(index) {
+    this.removeActiveClass();
+    this.addActiveClass(index);
     this.scriptEvent.emit({
       scriptIndex: index,
       scriptInfo : this.scripts[index]
     });
   }
+
+  removeActiveClass(){
+    const activeElements = document.querySelectorAll(".active");
+    activeElements.forEach((element)=>{
+      element.classList.remove("active");
+    })
+  }
+
+  addActiveClass(index){
+    const clickedBlock = document.getElementById(`${index}`);
+    clickedBlock.classList.add("active");
+  }
+
+  
 }

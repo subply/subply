@@ -4,8 +4,10 @@ ul{
 }
 
 li{
-    /* padding: 5pt 5pt 5pt 5pt; */
-    /* margin : 0pt 0pt 5pt 0pt; */
-    background-color: orange;
+    background-color: gray;
     list-style: none;
+}
+
+.active, li:hover{
+    background-color: orange;
 }
