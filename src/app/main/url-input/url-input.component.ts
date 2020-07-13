@@ -8,11 +8,11 @@ import { Router } from '@angular/router';
 })
 export class UrlInputComponent implements OnInit {
 
-  constructor(private router: Router) { }
-
-  ngOnInit() {
+  constructor(private router: Router) { 
     this.enterPressed();
   }
+
+  ngOnInit() { }
 
   enterPressed(){
     window.onkeydown = (event)=>{
