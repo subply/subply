@@ -1,10 +1,14 @@
 import { Component, Input, SimpleChanges } from "@angular/core";
-import { OnInit, OnChanges } from "@angular/core";
+import { OnChanges } from "@angular/core";
 import { TranslationService } from "../../../../service/translation.service";
 import { Translation } from "../../../model/translation.interface";
 import { User } from "../../../model/user.interface";
 import { UserService } from "../../../../service/user.service";
 import { LoginService } from "../../../../service/login.service";
+
+import { Script } from "../../../model/script.interface";
+import { ScriptsService } from "../../../../service/scripts.service";
+import { parseString } from "xml2js";
 
 @Component({
   selector: "translation-reply",
@@ -20,6 +24,7 @@ export class TranslationReplyComponent implements OnChanges {
 
   constructor(
     private translationService: TranslationService,
+    private scriptService: ScriptsService,
     private userService: UserService,
     private loginService: LoginService
   ) {}
@@ -153,7 +158,6 @@ export class TranslationReplyComponent implements OnChanges {
   }
 
   vote(subplyId: string) {
-    console.log("vote");
     //로그인 검사
     if (!this.loginService.isLoggedIn()) {
       return alert("로그인 후 이용가능 합니다");
@@ -166,5 +170,113 @@ export class TranslationReplyComponent implements OnChanges {
     };
 
     this.addVoteToSubply(object);
+  }
+
+  clickSubplyDownload() {
+    this.getScript();
+  }
+
+  getScript() {
+    if (this.videoId) {
+      this.scriptService.getXMLScript(this.videoId).subscribe((xmlScripts) => {
+        let scripts = [];
+
+        if (!xmlScripts) {
+          return alert("다운로드 에러 발생");
+        }
+
+        scripts = this.parsingXML(xmlScripts, scripts);
+        this.makeSubplyDownloadContents(scripts);
+      });
+    }
+  }
+
+  parsingXML(xmlScripts: any, scripts: Array<any>) {
+    parseString(xmlScripts, { explicitArray: false }, (error, result) => {
+      if (error) {
+        throw new Error("parseString error: " + error);
+      }
+
+      const returned_scripts = result.transcript.text;
+      returned_scripts.map((script) => {
+        const _start = parseFloat(script.$.start);
+        const _end = _start + parseFloat(script.$.dur);
+
+        const start = new Date(script.$.start * 1000)
+          .toISOString()
+          .substr(11, 12)
+          .replace(".", ",");
+
+        const end = new Date(_end * 1000)
+          .toISOString()
+          .substr(11, 12)
+          .replace(".", ",");
+
+        let _script: Script = {
+          script: script._,
+          startTime: start,
+          endTime: end,
+        };
+
+        scripts.push(_script);
+      });
+    });
+
+    return scripts;
+  }
+
+  sortSubplyByScriptIndex(index: number) {
+    let copySubplies = Array.from(this.translation.scripts[index].subplies);
+    return copySubplies.sort(function (a, b) {
+      return a.votes.length > b.votes.length
+        ? -1
+        : a.votes.length < b.votes.length
+        ? 1
+        : 0;
+    });
+  }
+
+  makeSubplyDownloadContents(youtubeScripts: Array<Script>) {
+    let content = "";
+    let finishedSubply = true;
+
+    youtubeScripts.every((_youtubScript, index) => {
+      console.log(index);
+      let _content = "";
+      let subplies = this.sortSubplyByScriptIndex(index);
+
+      if (!subplies[0] || subplies[0].translated === undefined) {
+        finishedSubply = false;
+        console.log("섭플이 없으" + index);
+        return false;
+      }
+      let translated = subplies[0].translated;
+      _content = `${index}\n${_youtubScript.startTime} --> ${_youtubScript.endTime}\n${translated}\n\n`;
+      content += _content;
+      return true;
+    });
+
+    if (!finishedSubply) return alert("섭플이 완료되지 않은 영상입니다.");
+
+    this.downloadSubply(content);
+  }
+
+  downloadSubply(data: string) {
+    const blob = new Blob([data], { type: "text/srt" });
+    this.downloadBlob(this.videoId + ".srt", blob);
+  }
+
+  public downloadBlob(fileName: string, blob: Blob): void {
+    if (window.navigator.msSaveOrOpenBlob) {
+      window.navigator.msSaveBlob(blob, fileName);
+    } else {
+      const anchor = window.document.createElement("a");
+      anchor.href = window.URL.createObjectURL(blob);
+      anchor.download = fileName;
+      document.body.appendChild(anchor);
+      anchor.click();
+      document.body.removeChild(anchor);
+      window.URL.revokeObjectURL(anchor.href);
+    }
   }
 }

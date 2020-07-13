@@ -1,7 +1,7 @@
-<div *ngIf="loading === true; then loading; else loaded;"></div>
+<div *ngIf="loading === true; then loading; else loaded"></div>
 
 <ng-template #loading>
-    Loading...
+  Loading...
 </ng-template>
 <ng-template #loaded>
     <div *ngIf="scriptExist === true; then exist; else notExist"></div>

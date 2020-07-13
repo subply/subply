@@ -33,7 +33,7 @@ subply 자막 번역, 번역 스크립트 파일 다운로드
 
 ## 프로젝트 구조
 
-![img load fail](./structure1.png)
+![img load fail](./subply-arc.png)
 
 ## 개발하기
 
