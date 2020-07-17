@@ -212,7 +212,7 @@ export class TranslationReplyComponent implements OnChanges {
           .substr(11, 12)
           .replace(".", ",");
 
-        let _script: Script = {
+        let _script = {
           script: script._,
           startTime: start,
           endTime: end,
