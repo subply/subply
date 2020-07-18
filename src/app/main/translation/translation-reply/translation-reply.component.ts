@@ -157,7 +157,7 @@ export class TranslationReplyComponent implements OnChanges {
       };
   }
 
-  vote(subplyId: string) {
+  toggleVote(subplyId: string) {
     //로그인 검사
     if (!this.loginService.isLoggedIn()) {
       return alert("로그인 후 이용가능 합니다");

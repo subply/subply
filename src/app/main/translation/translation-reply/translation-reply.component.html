@@ -52,7 +52,7 @@
         <br />
         <replymeta>
           닉네임: {{ subply.userId }}
-          <button (click)="vote(subply._id)">👍</button>
+          <button (click)="toggleVote(subply._id)">👍</button>
           {{ subply.votes.length }}
         </replymeta>
         <span *ngIf="user && user.userId == subply.userId">
