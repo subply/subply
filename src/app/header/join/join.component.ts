@@ -1,7 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormBuilder, Validators, Form } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ConfirmPasswordValidator } from './confirmPasswordValidator';
 import { UserService } from '../../../service/user.service';
+import { UserinfoService } from '../../../service/userinfo.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,6 +15,7 @@ export class JoinComponent implements OnInit {
   
   constructor(private fb: FormBuilder, 
     private userService: UserService,
+    private userInfoService: UserinfoService,
     private router: Router) {
     this.isDuplicated = true;
   }
@@ -67,7 +69,7 @@ export class JoinComponent implements OnInit {
   }
 
 
-  onSubmit(files: FileList){    
+  async onSubmit(files: FileList){    
     const {id, password_check, name, nickname} = this.joinForm.value;
     const newUser = new FormData();
 
@@ -76,11 +78,17 @@ export class JoinComponent implements OnInit {
     newUser.append('password', password_check);
     newUser.append('name', name);
     newUser.append('nickname', nickname);
-
-    this.userService.addUser(newUser).subscribe((user)=>{
+    
+    await this.userInfoService.addUserInfo(id).subscribe(({result})=>{
+      if(!result) {alert('회원 정보 초기화 실패'); return false;}
+    });
+    
+    await this.userService.addUser(newUser).subscribe((user)=>{
       if(!user) {alert('회원가입 실패'); return false;}
       alert('회원가입 성공!');
       this.router.navigate(['/']);
     });
+
+
   }
 }

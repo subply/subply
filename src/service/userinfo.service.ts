@@ -5,7 +5,6 @@ import { catchError } from "rxjs/operators";
 
 import config from "../config/config.json";
 import { ErrorHandlerService } from "../service/error-handler.service";
-import { UserInfo } from "../app/model/userInfo.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +16,8 @@ export class UserinfoService {
     private errorHandler: ErrorHandlerService
   ) {}
 
-  addUserInfo(userInfo: UserInfo): Observable<any> {
-    return this.http.post(`${config.server_url}/userinfo`, userInfo)
+  addUserInfo(id: string): Observable<any> {
+    return this.http.post(`${config.server_url}/userinfo`, {id})
     .pipe(catchError(this.errorHandler.handleError));
   }
 }
