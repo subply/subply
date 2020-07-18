@@ -241,7 +241,6 @@ export class TranslationReplyComponent implements OnChanges {
     let finishedSubply = true;
 
     youtubeScripts.every((_youtubScript, index) => {
-      console.log(index);
       let _content = "";
       let subplies = this.sortSubplyByScriptIndex(index);
 

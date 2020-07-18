@@ -66,18 +66,14 @@ export class RawScriptComponent implements OnInit {
       const returned_scripts = result.transcript.text;
       returned_scripts.map((script) => {
         const _start = parseFloat(script.$.start);
-        const _end = _start + parseFloat(script.$.dur);
-
-        const start = new Date(script.$.start * 1000)
-          .toISOString()
-          .substr(11, 12);
-
-        const end = new Date(_end * 1000).toISOString().substr(11, 12);
+        const _dur = parseFloat(script.$.dur);
+        const _end = _start + _dur;
 
         let _script: Script = {
           script: script._,
           startTime: _start,
           endTime: _end,
+          duration: _dur
         };
 
         this.scripts.push(_script);
@@ -86,7 +82,6 @@ export class RawScriptComponent implements OnInit {
   }
 
   handleclick(index) {
-    console.log(index);
     this.index = index;
     this.removeActiveClass();
     this.addActiveClass();
