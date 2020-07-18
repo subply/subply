@@ -40,6 +40,7 @@ export class TranslationReplyComponent implements OnChanges {
     }
   }
 
+
   getTranslation() {
     this.translationService.getTranslation(this.videoId).subscribe(
       (translation) => {
