@@ -30,7 +30,6 @@ export class UserService {
   }
 
   addUser(profilePhoto: object): Observable<any> {
-    console.log(profilePhoto);
     return this.http.post(`${config.server_url}/user`, profilePhoto, {responseType: 'text'})
     .pipe(catchError(this.errorHandler.handleError));
   }
