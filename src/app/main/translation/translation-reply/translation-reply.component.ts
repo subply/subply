@@ -212,7 +212,7 @@ export class TranslationReplyComponent implements OnChanges {
           .substr(11, 12)
           .replace(".", ",");
 
-        let _script: Script = {
+        let _script = {
           script: script._,
           startTime: start,
           endTime: end,
@@ -241,7 +241,6 @@ export class TranslationReplyComponent implements OnChanges {
     let finishedSubply = true;
 
     youtubeScripts.every((_youtubScript, index) => {
-      console.log(index);
       let _content = "";
       let subplies = this.sortSubplyByScriptIndex(index);
 
